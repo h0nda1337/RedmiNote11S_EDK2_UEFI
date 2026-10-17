@@ -6,7 +6,9 @@ después de una OTA. No es una configuración universal de la familia `fleur`.
 
 `MielNative.dsc` y `MielNative.fdf` componen el FD ARM64 de laboratorio, con
 SEC propio y servicios genéricos del core EDK2. El usuario observó las franjas
-azul/blanca de la sonda SEC en el Redmi. GOP y Shell siguen pendientes.
+azul/blanca de la sonda SEC y después fotografió el prompt `Shell>` en el Redmi.
+El primer arranque UEFI Shell está confirmado; entrada, almacenamiento, USB de
+UEFI y arranque de SO quedan pendientes.
 
 El perfil usa el firmware stock y dos registros LK del equipo. Las direcciones
 propuestas se distinguen de la validación física en `device-profile.json`.
@@ -23,4 +25,5 @@ El modo completo requiere además interpretar las reservas y aprobar FD/heap
 antes de habilitar MMU, HOBs y DXE. No se publican las capturas ni las imágenes.
 Los valores de `emeraldPkg` y del OPPO no son el mapa de memoria del Redmi.
 
-Consulta `Docs/miel-bringup.md`.
+La [evidencia del primer arranque](../../../Docs/evidence/2026-10-17-first-uefi-shell.md)
+registra fuente, hashes y recuperación. Consulta también `Docs/miel-bringup.md`.

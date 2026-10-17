@@ -1,7 +1,7 @@
 # Redmi Note 11S: EDK2 / MT6781 bring-up
 
 Trabajo inicial para **Redmi Note 11S 4G, variante `miel`, modelo 2201117SL**.
-Estado: **SEC nativo y framebuffer observados en el teléfono; Shell aún sin confirmar**.
+Estado: **primer arranque UEFI Shell confirmado en el teléfono, con fotografía y prompt `Shell>`**.
 Las pruebas temporales han terminado restaurando el boot stock y verificando Android.
 Los dispositivos que enumera la base más abajo
 son los soportados por upstream; esa lista no implica soporte para `miel`.
@@ -27,6 +27,9 @@ memoria válida para este teléfono.
   adaptado a MT6781; procedencia en `Docs/own-code-provenance.json`.
 - Entrada ARM64 comprobada en QEMU en EL1/EL2; bibliotecas verificadas con
   ASan/UBSan y 40 pruebas Python de formatos, transporte y selección USB.
+- Shell nativa observada físicamente tras aceptar el `status` de cuatro bytes
+  que LK escribe para la reserva SSPM. Se conserva esa reserva; evidencia y
+  hashes en el [registro del primer arranque](Docs/evidence/2026-10-17-first-uefi-shell.md).
 - Diagnóstico Linux original sin libc. Su primer ELF produjo `-EFAULT` al cargar
   PID 1; la corrección ya carga como proceso ordinario en el kernel del teléfono.
   El canal CDC-ACM aún no ha entregado el FDT. No se afirma que funcione como PID 1.
@@ -71,15 +74,22 @@ ni se recomienda instalar el prototipo.
 La sonda de tres buffers produjo las franjas **azul y blanca**, observadas por el
 usuario. Eso confirma ejecución SEC y salida visible en `0x7ca06000`; no hay foto
 adjunta. El teléfono volvió a Fastboot y se verificó Android tras restaurar stock.
-GOP y Shell siguen pendientes. El modo completo valida las reservas antes de
-habilitar heap y DXE. Evidencias por etapa en `Docs/physical-tests.json`.
+El modo completo valida las reservas antes de habilitar heap y DXE. La prueba
+posterior alcanzó Shell con salida gráfica visible. Evidencias por etapa en
+`Docs/physical-tests.json`.
 
 **Fotografía del arranque nativo:** [consola SEC en EL1 y `HANDOFF: UNSUPPORTED`](Docs/evidence/2026-10-17-sec-handoff-unsupported.md).
-El fallo actual está en la interpretación del handoff, antes del plan de memoria.
+Esa primera prueba se detuvo en la interpretación del handoff, antes del plan de memoria.
 La [segunda fotografía con traza](Docs/evidence/2026-10-17-sec-status-length.md)
 lo localiza en `status` de `reserve-memory-sspm_share`: longitud 4 y valor
 visible `OKAY`; el intérprete exigía el NUL final para ese estado.
 La sesión terminó restaurando stock y verificando Android.
+
+**Primer arranque UEFI Shell:** [fotografía, corrección y recuperación](Docs/evidence/2026-10-17-first-uefi-shell.md).
+El prompt `Shell>` confirma el hito inicial. El port sigue siendo experimental;
+entrada de usuario, almacenamiento, USB de UEFI y arranque de SO quedan pendientes.
+La sesión del 17 de octubre termina con el teléfono en Android stock, a petición
+del usuario.
 
 ---
 

@@ -6,6 +6,8 @@
 /Platform/Xiaomi/mielPkg/** text eol=lf
 /Docs/*.md text eol=lf
 /Docs/*.json text eol=lf
+/Docs/evidence/*.md text eol=lf
+/Docs/evidence/*.json text eol=lf
 /README.md text eol=lf
 /AGENTS.md text eol=lf
 /.gitmodules text eol=lf

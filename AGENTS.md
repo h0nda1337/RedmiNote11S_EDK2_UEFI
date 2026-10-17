@@ -1,6 +1,10 @@
 # Instrucciones del port
 
-- Meta activa: primer arranque EDK2 verificable en Redmi Note 11S miel/MT6781.
+- Hito inicial cumplido el 17 de octubre de 2026: UEFI Shell fotografiada con
+  prompt `Shell>` en Redmi Note 11S miel/MT6781. Evidencia en
+  `Docs/evidence/2026-10-17-first-uefi-shell.md`.
+- Sesión física cerrada a petición del usuario, con stock restaurado y Android
+  arrancado. Retomar pruebas sobre este teléfono solo ante una petición posterior.
 - Seleccionar exclusivamente el teléfono USB. ADB con `-d`; Fastboot con el
   número de serie obtenido de ese transporte, sin escribirlo en evidencias públicas.
 - Mantener descargas, dependencias, capturas y compilaciones en G: o F:.

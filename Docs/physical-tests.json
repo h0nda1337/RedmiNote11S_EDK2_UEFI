@@ -5,7 +5,7 @@
   "selected_transport": "USB only",
   "stock_sha256": "f82b804775d3d205b774ace88e3a36c65f9500f5df8a312a370322fc2999cf5d",
   "raw_captures_private": true,
-  "uefi_shell_verified": false,
+  "uefi_shell_verified": true,
   "tests": [
     {
       "name": "linux-original",
@@ -114,10 +114,37 @@
       "dxe_reached": false,
       "uefi_shell_verified": false,
       "photographic_evidence": "evidence/2026-10-17-sec-status-length.jpeg"
+    },
+    {
+      "name": "native-shell-lk-status-fixed",
+      "source_commit": "52e4a84",
+      "candidate_sha256": "24292d411ce7338a3af18b8353ab5819084c496c1af5b41a4cd2358fdfc45bde",
+      "partition": "boot_a",
+      "android_before_battery_percent": 63,
+      "stock_restored": true,
+      "stock_android_boot_completed": true,
+      "native_bootloader_return_observed": false,
+      "initial_fastboot_wait_elapsed_seconds": 120.625,
+      "stock_restoration_fastboot_observed": true,
+      "total_return_latency_seconds": null,
+      "native_sec_execution_verified": true,
+      "full_handoff_interpretation_validated": true,
+      "memory_plan_reached": true,
+      "mmu_reached": true,
+      "dxe_reached": true,
+      "intermediate_stage_evidence": "Inferred from the sole code path to the photographed Shell prompt",
+      "uefi_execution_verified": true,
+      "uefi_shell_verified": true,
+      "uefi_shell_photographically_observed": true,
+      "gop_text_output_user_observed": true,
+      "observer_report": "UEFI Shell; Si, aparece Shell>; user supplied photograph",
+      "photographic_evidence": "evidence/2026-10-17-first-uefi-shell.jpeg"
     }
   ],
   "native_sec_execution_user_observed": true,
   "framebuffer_visible_base_user_observed": "0x7ca06000",
   "native_sec_photographically_observed": true,
-  "current_failure_stage": "MielInspectHandoff: RESOURCE_STATUS; SSPM status length 4"
+  "current_failure_stage": null,
+  "uefi_shell_photographically_observed": true,
+  "session_closed_at_user_request": true
 }

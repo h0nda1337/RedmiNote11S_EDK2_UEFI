@@ -75,3 +75,6 @@ Se publica una copia sin GPS ni metadatos de cámara. Se conservan orientación,
 perfil ICC y flujo principal JPEG byte por byte, sin recomprimir, recortar,
 retocar ni generar píxeles. El original permanece privado en `Local/`.
 El [registro de integridad](2026-10-17-sec-status-length.json) contiene los hashes.
+
+Actualización: la [prueba posterior alcanzó `Shell>`](2026-10-17-first-uefi-shell.md)
+con esta corrección, quedó fotografiada y terminó con Android stock restaurado.

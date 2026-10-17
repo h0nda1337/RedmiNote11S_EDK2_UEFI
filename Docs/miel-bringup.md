@@ -225,6 +225,24 @@ variante en bancos de RAM, estados desconocidos y datos que solo coincidan en
 un prefijo. Pasan ASan/UBSan y las 512 corrupciones del árbol; falta comprobar
 el avance en el teléfono con el FD recompilado.
 
+## Primer arranque UEFI Shell y cierre del día
+
+Con la corrección `52e4a84`, el usuario confirmó **`Shell>`** y proporcionó una
+[fotografía del primer arranque](evidence/2026-10-17-first-uefi-shell.md).
+Se alcanza el hito de UEFI Shell nativa con salida visible en el Redmi. El
+tránsito por handoff, plan de memoria, MMU, DXE y BDS se infiere de la ruta
+del código hasta la aplicación; no se capturó el FDT crudo ni el mapa completo.
+
+Se restauró stock por el mismo Fastboot USB y Android completó el arranque,
+con fingerprint y slot comprobados. La primera espera de 120 segundos no
+detectó el retorno; la fase posterior de recuperación sí lo encontró. Ese
+plazo no se presenta como tiempo de arranque ni de retorno medido.
+
+El usuario pidió cerrar las pruebas con este teléfono por hoy. Quedan para
+otra sesión entrada de usuario, almacenamiento/USB y arranque de SO. El código
+y las tres fotografías documentadas quedan en GitHub; binarios y registros
+privados permanecen en G:/F:.
+
 ## Fuentes primarias
 
 - Base: https://github.com/linux-mediatek/edk2-mtk/tree/fdb0ef928ac70ff0f2725b4cb302db4d25a55c47
