@@ -172,6 +172,26 @@ El siguiente hito sigue siendo una señal nativa inequívoca y, después, Shell
 UEFI en pantalla con la memoria del arranque validada. El FDT crudo, imágenes
 y registros completos permanecen privados en `Local/` y fuera de Git.
 
+## Primera señal SEC observada
+
+La sonda corta se separó del heap y se hicieron marcas limitadas en los tres
+buffers completos de la VRAM declarada por el LK de ese arranque. Cada superficie
+se comprueba contra el tamaño del tag antes de escribir. El usuario respondió
+**«Azul y blanca»**, identificando el buffer 1 en `0x7ca06000`, que coincide con
+las capturas de Fastboot. Es una observación del usuario; no se recibió fotografía.
+
+La imagen probada tiene SHA-256
+`b87cfcfd1758935c785e05f440748b4e22f664e45ae623fe36e92863540f035e`.
+El código solicita reset tras diez segundos. El host detectó Fastboot a los
+22,14 segundos desde su orden de reinicio, incluyendo carga de LK y USB, y
+restauró stock. Android completó de nuevo el arranque. La sonda solo valida entrada
+SEC, plataforma/PSCI/watchdog y VRAM; no ejecuta MMU, DXE ni Shell.
+
+El siguiente ensayo usa la consola temprana, cuyo estado reside en el SEC, para
+mostrar el resultado de GIC, interpretación FDT y plan de memoria. El acceso al
+log compartido se mantiene después de validar el heap. La prueba de host de esta
+separación pasó con la página compartida completa protegida mediante PROT_NONE.
+
 ## Fuentes primarias
 
 - Base: https://github.com/linux-mediatek/edk2-mtk/tree/fdb0ef928ac70ff0f2725b4cb302db4d25a55c47

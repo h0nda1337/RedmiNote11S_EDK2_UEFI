@@ -21,3 +21,5 @@ gcc "${flags[@]}" "$pkg/Library/MielMemoryPlanLib/MielMemoryPlanLib.c" \
 gcc "${flags[@]}" "$pkg/Library/MielFrameBufferLib/MielFrameBufferLib.c" \
   Tools/Tests/test_framebuffer.c -o "$out/test-framebuffer"
 "$out/test-framebuffer"
+
+bash Tools/Tests/test_early_debug.sh

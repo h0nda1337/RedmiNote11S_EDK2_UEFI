@@ -41,7 +41,7 @@
       "linux_capture_complete": false,
       "uefi_execution_verified": false,
       "native_bootloader_return_observed": null,
-      "observer_report": "Fastboot; Windows lo detectó después de reconectar el USB"
+      "observer_report": "Fastboot; Windows lo detectÃ³ despuÃ©s de reconectar el USB"
     },
     {
       "name": "native-entry-first",
@@ -54,6 +54,23 @@
       "uefi_execution_verified": false,
       "native_bootloader_return_observed": true,
       "observer_report": "Solo logo o Fastboot; sin franjas observadas"
+    },
+    {
+      "name": "native-entry-three-buffers",
+      "candidate_sha256": "b87cfcfd1758935c785e05f440748b4e22f664e45ae623fe36e92863540f035e",
+      "partition": "boot_a",
+      "android_before_battery_percent": 59,
+      "stock_restored": true,
+      "stock_android_boot_completed": true,
+      "native_bootloader_return_observed": true,
+      "native_return_elapsed_seconds": 22.141,
+      "native_sec_execution_user_observed": true,
+      "uefi_shell_verified": false,
+      "observer_report": "Azul y blanca",
+      "visible_buffer_base": "0x7ca06000",
+      "photographic_evidence_available": false
     }
-  ]
+  ],
+  "native_sec_execution_user_observed": true,
+  "framebuffer_visible_base_user_observed": "0x7ca06000"
 }

@@ -1,5 +1,5 @@
 {
-  "status": "native-edk2-builds-physical-boot-unverified",
+  "status": "native-sec-and-framebuffer-user-observed-shell-unverified",
   "model": "2201117SL",
   "android_device": "miel",
   "soc": "mt6781",
@@ -15,11 +15,16 @@
   "runtime_memory_map": null,
   "uefi_load_address": "0x40080000",
   "uefi_load_address_hardware_verified": false,
-  "candidate_heap": {"base": "0x43000000", "size": "0x04000000"},
+  "candidate_heap": {
+    "base": "0x43000000",
+    "size": "0x04000000"
+  },
   "uefi_stack_address": null,
   "framebuffer_base": "0x7ca06000",
   "framebuffer_stride": 4320,
-  "framebuffer_evidence": "Two consistent stock LK captures; EDK2 drawing unverified",
+  "framebuffer_evidence": "Blue + white SEC probe observed on physical phone, buffer 1 at 0x7ca06000",
   "uefi_execution_verified": false,
-  "stock_android_restoration_verified": true
+  "stock_android_restoration_verified": true,
+  "native_sec_execution_user_observed": true,
+  "uefi_shell_verified": false
 }

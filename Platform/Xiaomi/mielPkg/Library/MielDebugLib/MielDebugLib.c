@@ -31,6 +31,8 @@ typedef struct {
 } LOG_STATE;
 STATIC_ASSERT (sizeof (LOG_STATE) <= 4096, "Log state exceeds its reserved page");
 STATIC BOOLEAN mReady;
+STATIC BOOLEAN mUseEarlyState;
+STATIC LOG_STATE mEarlyState;
 
 typedef struct { CHAR8 Character; UINT8 Rows[7]; } GLYPH;
 STATIC CONST GLYPH mGlyphs[] = {
@@ -67,7 +69,7 @@ STATIC CONST GLYPH mGlyphs[] = {
 
 STATIC LOG_STATE *State (VOID)
 {
-  LOG_STATE *S = (LOG_STATE *)(UINTN)MIEL_NATIVE_DEBUG_BASE;
+  LOG_STATE *S = mUseEarlyState ? &mEarlyState : (LOG_STATE *)(UINTN)MIEL_NATIVE_DEBUG_BASE;
   if (S->Signature != LOG_SIGNATURE || S->Revision != 1 || S->Column >= COLUMNS ||
       S->Row >= ROWS || S->Frame.Pixels != (volatile UINT32 *)(UINTN)MIEL_NATIVE_FB_BASE ||
       S->Frame.MappedBytes != FRAME_BYTES || S->Frame.Layout.Width != MIEL_NATIVE_FB_WIDTH ||
@@ -131,6 +133,7 @@ STATIC VOID Write (LOG_STATE *S, CONST CHAR8 *Buffer, UINTN Bytes, UINTN Level)
 
 BOOLEAN EFIAPI MielDebugStart (VOID)
 {
+  mUseEarlyState = FALSE;
   LOG_STATE *S = (LOG_STATE *)(UINTN)MIEL_NATIVE_DEBUG_BASE;
   MIEL_FB_LAYOUT Layout = {MIEL_NATIVE_FB_WIDTH, MIEL_NATIVE_FB_HEIGHT, MIEL_NATIVE_FB_STRIDE,
     MIEL_NATIVE_FB_RED_SHIFT, MIEL_NATIVE_FB_BLUE_SHIFT, TRUE};
@@ -142,6 +145,24 @@ BOOLEAN EFIAPI MielDebugStart (VOID)
   MemoryFence (); S->Signature = LOG_SIGNATURE; MemoryFence ();
   mReady = TRUE;
   Write (S, "MIEL ORIGINAL SEC/DXE DISPLAY LOG\n", 34, DEBUG_INFO);
+  return TRUE;
+}
+
+BOOLEAN EFIAPI MielDebugStartEarly (VOID)
+{
+  LOG_STATE *S = &mEarlyState;
+  MIEL_FB_LAYOUT Layout = {MIEL_NATIVE_FB_WIDTH, MIEL_NATIVE_FB_HEIGHT, MIEL_NATIVE_FB_STRIDE,
+    MIEL_NATIVE_FB_RED_SHIFT, MIEL_NATIVE_FB_BLUE_SHIFT, TRUE};
+  ZeroMem (S, sizeof (*S));
+  if (!MielFbInitialize (&S->Frame, (VOID *)(UINTN)MIEL_NATIVE_FB_BASE, FRAME_BYTES, &Layout)) return FALSE;
+  S->Revision = 1;
+  Fill (S, (EFI_GRAPHICS_OUTPUT_BLT_PIXEL){0,0,0,0}, 0, FIRST_ROW,
+        COLUMNS * CELL_WIDTH, ROWS * CELL_HEIGHT);
+  MemoryFence (); S->Signature = LOG_SIGNATURE; MemoryFence ();
+  mUseEarlyState = TRUE;
+  mReady = TRUE;
+  CONST CHAR8 Banner[] = "MIEL ORIGINAL SEC EARLY DISPLAY LOG\n";
+  Write (S, Banner, sizeof (Banner) - 1, DEBUG_INFO);
   return TRUE;
 }
 

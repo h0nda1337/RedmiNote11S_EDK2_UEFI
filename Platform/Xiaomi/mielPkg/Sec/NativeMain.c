@@ -245,7 +245,7 @@ VOID EFIAPI MielSecMain (IN CONST MIEL_SEC_ENTRY_CONTEXT *Entry)
   if ((Entry->ExceptionLevel != 1 && Entry->ExceptionLevel != 2) || Entry->CounterFrequency == 0 ||
       Fdt < MIEL_NATIVE_DRAM_BASE || Fdt > MIEL_NATIVE_DRAM_END - 40 || (Fdt & 7)) Stop ();
   if (Entry->CounterFrequency > 1000000000ULL) Stop ();
-  mStopHoldTicks = Entry->CounterFrequency * 3;
+  mStopHoldTicks = Entry->CounterFrequency * 30;
   UINT64 Total = BigNumber ((CONST UINT8 *)(UINTN)Fdt + 4, 4);
   if (Total > 2 * 1024 * 1024 || Total > MIEL_NATIVE_DRAM_END - Fdt ||
       !MielFdtOpen ((CONST VOID *)(UINTN)Fdt, (UINTN)Total, &View)) Stop ();
@@ -271,15 +271,25 @@ VOID EFIAPI MielSecMain (IN CONST MIEL_SEC_ENTRY_CONTEXT *Entry)
   mMarkerReady = TRUE;
   Stage (0, (EFI_GRAPHICS_OUTPUT_BLT_PIXEL){0, 255, 0, 0});
   if (FeaturePcdGet (PcdNativeEntryProbe)) EntryProbe (Entry);
+  if (!MielDebugStartEarly ()) Stop ();
+  DEBUG ((DEBUG_INFO, "EL %u FDT %Lx PSCI %x\n", (UINT32)Entry->ExceptionLevel, Fdt, State.PsciVersion));
   if (!RegisterMatches (&View, "/interrupt-controller", MIEL_NATIVE_GICD_BASE, 0x40000, 0) ||
       !RegisterMatches (&View, "/interrupt-controller", MIEL_NATIVE_GICR_BASE, 0x200000, 16)) Stop ();
+  DEBUG ((DEBUG_INFO, "GIC DECLARATIONS OK\n"));
   State.Entry = Entry;
   Status = MielInspectHandoff ((CONST VOID *)(UINTN)Fdt, (UINTN)Total, Fdt, &State.Handoff);
+  DEBUG ((DEBUG_INFO, "HANDOFF: %r\n", Status));
   if (Status != EFI_SUCCESS) Stop ();
+  DEBUG ((DEBUG_INFO, "RAM %u RESERVED %u DYNAMIC %u UNRESOLVED %u\n", (UINT32)State.Handoff.RamCount,
+          (UINT32)State.Handoff.ReservedCount, State.Handoff.DynamicReservationCount,
+          State.Handoff.UnresolvedReservationCount));
+  for (UINTN I = 0; I < State.Handoff.RamCount; I++)
+    DEBUG ((DEBUG_INFO, "RAM %u: %Lx + %Lx\n", (UINT32)I, State.Handoff.Ram[I].Base, State.Handoff.Ram[I].Length));
   Stage (1, (EFI_GRAPHICS_OUTPUT_BLT_PIXEL){255, 0, 0, 0});
   Status = MielPlanEarlyMemory (&State.Handoff,
     (MIEL_MEMORY_RANGE){MIEL_NATIVE_FD_BASE, MIEL_NATIVE_FD_BYTES},
     (MIEL_MEMORY_RANGE){MIEL_NATIVE_POOL_BASE, MIEL_NATIVE_POOL_BYTES}, &State.Plan);
+  DEBUG ((DEBUG_INFO, "MEMORY PLAN: %r\n", Status));
   if (Status != EFI_SUCCESS || !State.Handoff.NativePanelFound ||
       !State.Handoff.NativeFramebufferCoveredByReservation ||
       State.Handoff.NativeFramebuffer.Base != MIEL_NATIVE_FB_RESERVATION_BASE) Stop ();

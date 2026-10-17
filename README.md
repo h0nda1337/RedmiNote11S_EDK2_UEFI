@@ -1,7 +1,7 @@
 # Redmi Note 11S: EDK2 / MT6781 bring-up
 
 Trabajo inicial para **Redmi Note 11S 4G, variante `miel`, modelo 2201117SL**.
-Estado: **EDK2 nativo compilado; arranque físico UEFI todavía sin confirmar**.
+Estado: **SEC nativo y framebuffer observados en el teléfono; Shell aún sin confirmar**.
 Las pruebas temporales han terminado restaurando el boot stock y verificando Android.
 Los dispositivos que enumera la base más abajo
 son los soportados por upstream; esa lista no implica soporte para `miel`.
@@ -68,9 +68,11 @@ vacía. El runner de laboratorio escribe temporalmente solo `boot_a` y restaura
 el stock preparado antes de volver a Android. No se distribuyen imágenes stock
 ni se recomienda instalar el prototipo.
 
-La sonda nativa inicial volvió a Fastboot sin franjas observadas. Todavía no se
-ha confirmado SEC, GOP ni Shell en la pantalla del teléfono. Las reservas reales
-de cada arranque deben validarse antes de habilitar el heap y DXE.
+La sonda de tres buffers produjo las franjas **azul y blanca**, observadas por el
+usuario. Eso confirma ejecución SEC y salida visible en `0x7ca06000`; no hay foto
+adjunta. El teléfono volvió a Fastboot y se verificó Android tras restaurar stock.
+GOP y Shell siguen pendientes. El modo completo valida las reservas antes de
+habilitar heap y DXE. Evidencias por etapa en `Docs/physical-tests.json`.
 
 ---
 
