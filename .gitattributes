@@ -1,0 +1,15 @@
+/Tools/Bringup/** text eol=lf
+/Tools/Build/*.sh text eol=lf
+/Tools/Tests/** text eol=lf
+/Platform/Xiaomi/mielPkg/** text eol=lf
+/Docs/*.md text eol=lf
+/Docs/*.json text eol=lf
+/Docs/evidence/*.md text eol=lf
+/Docs/evidence/*.json text eol=lf
+/README.md text eol=lf
+/AGENTS.md text eol=lf
+/CONTRIBUTORS.md text eol=lf
+/LICENSE text eol=lf
+/build.sh text eol=lf
+/.clang-format text eol=lf
+/.gitmodules text eol=lf

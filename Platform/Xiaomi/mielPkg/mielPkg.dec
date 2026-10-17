@@ -1,0 +1,27 @@
+## @file
+# SPDX-License-Identifier: BSD-2-Clause
+##
+[Defines]
+  DEC_SPECIFICATION = 0x0001001B
+  PACKAGE_NAME      = mielPkg
+  PACKAGE_GUID      = 23972ba8-09ca-4860-91eb-afaf7555b151
+  PACKAGE_VERSION   = 0.1
+
+[Includes]
+  Include
+
+[LibraryClasses]
+  MielPlatformLib|Include/Library/MielPlatformLib.h
+  MielFrameBufferLib|Include/Library/MielFrameBufferLib.h
+  MielFdtLib|Include/Library/MielFdtLib.h
+  MielHandoffLib|Include/Library/MielHandoffLib.h
+  MielMemoryPlanLib|Include/Library/MielMemoryPlanLib.h
+
+[Guids]
+  gMielNativeTokenSpaceGuid = { 0x64a79345, 0xb1b1, 0x45db, {0xa2, 0x7a, 0xe1, 0xe0, 0x62, 0xc7, 0x4f, 0x3d} }
+  gMielBootInfoHobGuid = { 0xfdb3ac54, 0x858f, 0x489a, {0x81, 0x1f, 0x4b, 0xb4, 0x30, 0x7e, 0xf7, 0x58} }
+  gMielGopDeviceGuid = { 0xa6c34bc9, 0x48a4, 0x4391, {0x80, 0x14, 0xa7, 0x3a, 0x72, 0x9c, 0xef, 0xd2} }
+
+[PcdsFeatureFlag]
+  gMielNativeTokenSpaceGuid.PcdNativeEntryProbe|FALSE|BOOLEAN|0x00000001
+  gMielNativeTokenSpaceGuid.PcdNativeMmuProbe|FALSE|BOOLEAN|0x00000002

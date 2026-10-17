@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: BSD-2-Clause
+[Defines]
+  INF_VERSION = 0x0001001B
+  BASE_NAME = MielRuntimeDxe
+  FILE_GUID = F53FF4EB-DAAA-48FE-8753-A60F2D2A28EA
+  MODULE_TYPE = DXE_RUNTIME_DRIVER
+  ENTRY_POINT = MielRuntimeEntry
+[Sources]
+  MielRuntimeDxe.c
+[Packages]
+  MdePkg/MdePkg.dec
+  mielPkg/mielPkg.dec
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  ArmSmcLib
+  BaseLib
+[Protocols]
+  gEfiResetArchProtocolGuid
+  gEfiRealTimeClockArchProtocolGuid
+  gEfiCapsuleArchProtocolGuid
+[Depex]
+  TRUE

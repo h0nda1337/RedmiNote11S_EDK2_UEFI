@@ -1,0 +1,27 @@
+# SPDX-License-Identifier: BSD-2-Clause
+[Defines]
+  INF_VERSION = 0x0001001B
+  BASE_NAME = MielGopDxe
+  FILE_GUID = 16BA6A29-226F-4984-AF60-69327F3287B0
+  MODULE_TYPE = DXE_DRIVER
+  ENTRY_POINT = MielGopEntry
+[Sources]
+  MielGopDxe.c
+[Packages]
+  MdePkg/MdePkg.dec
+  mielPkg/mielPkg.dec
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  MemoryAllocationLib
+  HobLib
+  BaseLib
+  MielFrameBufferLib
+[Guids]
+  gMielBootInfoHobGuid
+  gMielGopDeviceGuid
+[Protocols]
+  gEfiDevicePathProtocolGuid
+  gEfiGraphicsOutputProtocolGuid
+[Depex]
+  TRUE

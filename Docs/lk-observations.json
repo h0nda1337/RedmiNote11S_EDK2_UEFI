@@ -1,0 +1,218 @@
+{
+  "source": "stock LK/Preloader over selected USB Fastboot",
+  "runtime_fdt_captured": false,
+  "complete_runtime_memory_map_proven": false,
+  "allocation_events_are_not_a_final_reserved_map": true,
+  "consistent_capture_count": 2,
+  "private_input_sha256": [
+    "b511903607d979f1e883e7359d466ad3e9a39b86d65ede0906759c80399c6e46",
+    "cd50679e34a7c04f76a9be0e53b44fb18c6288af770fa42349f3f3c0a970b64e"
+  ],
+  "dram_banks": [
+    {
+      "base": "0x40000000",
+      "size": "0x80000000"
+    },
+    {
+      "base": "0xc0000000",
+      "size": "0x100000000"
+    }
+  ],
+  "preloader_free_mblocks": [
+    {
+      "base": "0x40000000",
+      "size": "0xc080000"
+    },
+    {
+      "base": "0x4c280000",
+      "size": "0xb80000"
+    },
+    {
+      "base": "0x4d100000",
+      "size": "0x12e00000"
+    },
+    {
+      "base": "0x5ff80000",
+      "size": "0x10080000"
+    },
+    {
+      "base": "0x75c00000",
+      "size": "0x8200000"
+    },
+    {
+      "base": "0x7ee41000",
+      "size": "0x7f000"
+    },
+    {
+      "base": "0x80000000",
+      "size": "0x3fc00000"
+    },
+    {
+      "base": "0xbfc20000",
+      "size": "0x1e0000"
+    },
+    {
+      "base": "0xbfe40000",
+      "size": "0x130000"
+    },
+    {
+      "base": "0xbfff0000",
+      "size": "0xf000"
+    },
+    {
+      "base": "0xc0000000",
+      "size": "0x10000000"
+    },
+    {
+      "base": "0xd0000000",
+      "size": "0xeffff000"
+    },
+    {
+      "base": "0xbffff000",
+      "size": "0x1000"
+    },
+    {
+      "base": "0x1bffff000",
+      "size": "0x1000"
+    },
+    {
+      "base": "0x7f000000",
+      "size": "0x1000000"
+    },
+    {
+      "base": "0x7ee00000",
+      "size": "0x41000"
+    },
+    {
+      "base": "0x7efc0000",
+      "size": "0x40000"
+    },
+    {
+      "base": "0x4ce00000",
+      "size": "0x200000"
+    },
+    {
+      "base": "0xbff70000",
+      "size": "0x80000"
+    },
+    {
+      "base": "0xbfe00000",
+      "size": "0x40000"
+    },
+    {
+      "base": "0x7ea00000",
+      "size": "0x400000"
+    },
+    {
+      "base": "0x7eec0000",
+      "size": "0x100000"
+    },
+    {
+      "base": "0x70000000",
+      "size": "0x5c00000"
+    },
+    {
+      "base": "0xbfc00000",
+      "size": "0x20000"
+    },
+    {
+      "base": "0x7de00000",
+      "size": "0xc00000"
+    },
+    {
+      "base": "0x5ff00000",
+      "size": "0x80000"
+    },
+    {
+      "base": "0x4c080000",
+      "size": "0x200000"
+    },
+    {
+      "base": "0x4d000000",
+      "size": "0x10000"
+    },
+    {
+      "base": "0x4d010000",
+      "size": "0xe0000"
+    },
+    {
+      "base": "0x4d0f0000",
+      "size": "0x10000"
+    }
+  ],
+  "observed_allocation_events": [
+    {
+      "name": "atf-reserved",
+      "base": "0x4ce00000",
+      "size": "0x200000"
+    },
+    {
+      "name": "atf-ramdump-reserved",
+      "base": "0xbff70000",
+      "size": "0x80000"
+    },
+    {
+      "name": "atf-log-reserved",
+      "base": "0xbfe00000",
+      "size": "0x40000"
+    },
+    {
+      "name": "tee-secmem",
+      "base": "0x7ea00000",
+      "size": "0x400000"
+    },
+    {
+      "name": "SSPM-reserved",
+      "base": "0x7eec0000",
+      "size": "0x100000"
+    },
+    {
+      "name": "tee-reserved",
+      "base": "0x70000000",
+      "size": "0x5c00000"
+    },
+    {
+      "name": "tee-log-reserved",
+      "base": "0xbfc00000",
+      "size": "0x20000"
+    },
+    {
+      "name": "tee_ree_reserved",
+      "base": "0x7de00000",
+      "size": "0xc00000"
+    },
+    {
+      "name": "lk_addr_mb",
+      "base": "0x4c400000",
+      "size": "0x600000"
+    },
+    {
+      "name": "scratch_addr_mb",
+      "base": "0x4e000000",
+      "size": "0x8000000"
+    },
+    {
+      "name": "framebuffer",
+      "base": "0x7c010000",
+      "size": "0x1df0000"
+    },
+    {
+      "name": "logo_db_addr_pa",
+      "base": "0x7b010000",
+      "size": "0x1000000"
+    },
+    {
+      "name": "tempfb_addr",
+      "base": "0x7a610000",
+      "size": "0x9f6000"
+    }
+  ],
+  "active_overlay": {
+    "layer": 1,
+    "width": 1080,
+    "height": 2400,
+    "stride_bytes": 4320,
+    "format": "eBGRA8888",
+    "base": "0x7ca06000"
+  }
+}

@@ -1,0 +1,22 @@
+## @file
+# Original bounded display logger for native SEC, DXE and laboratory Shell.
+# SPDX-License-Identifier: BSD-2-Clause
+##
+[Defines]
+  INF_VERSION = 0x0001001B
+  BASE_NAME = MielDebugLib
+  FILE_GUID = 16C6E7FD-EEED-440D-BBC2-B78D65A1C5EF
+  MODULE_TYPE = BASE
+  VERSION_STRING = 0.1
+  LIBRARY_CLASS = DebugLib|SEC DXE_DRIVER UEFI_APPLICATION
+  CONSTRUCTOR = MielDebugConstructor
+[Sources]
+  MielDebugLib.c
+[Packages]
+  MdePkg/MdePkg.dec
+  mielPkg/mielPkg.dec
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  PrintLib
+  MielFrameBufferLib

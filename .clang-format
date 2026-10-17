@@ -1,0 +1,6 @@
+# Formatting preferences for the miel port.
+BasedOnStyle: LLVM
+IndentWidth: 2
+ColumnLimit: 100
+BreakBeforeBraces: Allman
+UseTab: Never

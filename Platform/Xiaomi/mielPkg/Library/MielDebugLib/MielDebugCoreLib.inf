@@ -1,0 +1,24 @@
+## @file
+# Bind the SEC-validated page before the DXE core's earliest memory checks.
+# SPDX-License-Identifier: BSD-2-Clause
+##
+[Defines]
+  INF_VERSION = 0x0001001B
+  BASE_NAME = MielDebugCoreLib
+  FILE_GUID = 42D6BFF9-6F05-4D4C-8917-9B37CD1222F6
+  MODULE_TYPE = BASE
+  VERSION_STRING = 0.1
+  LIBRARY_CLASS = DebugLib|DXE_CORE
+  CONSTRUCTOR = MielDebugConstructor
+[Sources]
+  MielDebugLib.c
+[BuildOptions]
+  GCC:*_*_*_CC_FLAGS = -DMIEL_LOG_EARLY_CORE
+[Packages]
+  MdePkg/MdePkg.dec
+  mielPkg/mielPkg.dec
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  PrintLib
+  MielFrameBufferLib

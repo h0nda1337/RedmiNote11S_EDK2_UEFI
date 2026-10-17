@@ -1,0 +1,13 @@
+# Private captures, reference firmware, dependencies and build output.
+/Local/
+/Build/
+/Conf/
+**/__pycache__/
+*.py[cod]
+*.fd
+*.img
+*.dtb
+*.dtbo
+*.dts
+.vscode/
+.idea/

@@ -1,0 +1,30 @@
+# SPDX-License-Identifier: BSD-2-Clause
+[Defines]
+  INF_VERSION = 0x0001001B
+  BASE_NAME = MielBdsDxe
+  FILE_GUID = 98F425D9-C61C-4AFB-8798-44B731ACFE4C
+  MODULE_TYPE = DXE_DRIVER
+  ENTRY_POINT = MielBdsEntry
+[Sources]
+  MielBdsDxe.c
+[Packages]
+  MdePkg/MdePkg.dec
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  MemoryAllocationLib
+  DevicePathLib
+  DebugLib
+  TimerLib
+  ArmLib
+[Protocols]
+  gEfiBdsArchProtocolGuid
+  gEfiGraphicsOutputProtocolGuid
+  gEfiSimpleTextOutProtocolGuid
+  gEfiFirmwareVolume2ProtocolGuid
+  gEfiHiiDatabaseProtocolGuid
+  gEfiHiiFontProtocolGuid
+  gEfiHiiStringProtocolGuid
+[Depex]
+  TRUE

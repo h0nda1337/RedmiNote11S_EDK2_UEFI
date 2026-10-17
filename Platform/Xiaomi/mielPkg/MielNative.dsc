@@ -1,0 +1,173 @@
+## @file
+# Original experimental platform composition. Generic UEFI/ARM services are EDK2 core.
+# SPDX-License-Identifier: BSD-2-Clause
+##
+[Defines]
+  PLATFORM_NAME = MielNative
+  PLATFORM_GUID = D2433765-7159-4FE8-B989-6825289E073F
+  PLATFORM_VERSION = 0.1
+  DSC_SPECIFICATION = 0x0001001B
+  OUTPUT_DIRECTORY = $(MIEL_BUILD_ROOT)
+  SUPPORTED_ARCHITECTURES = AARCH64
+  BUILD_TARGETS = RELEASE
+  SKUID_IDENTIFIER = DEFAULT
+  FLASH_DEFINITION = mielPkg/MielNative.fdf
+  DEFINE MIEL_ENTRY_PROBE = FALSE
+  DEFINE MIEL_MMU_PROBE = FALSE
+
+!include MdePkg/MdeLibs.dsc.inc
+
+[BuildOptions]
+  GCC:*_*_*_CC_FLAGS = -fno-jump-tables
+  GCC:*_*_*_DLINK_FLAGS = -z common-page-size=0x1000
+
+[BuildOptions.common.EDKII.DXE_RUNTIME_DRIVER]
+  GCC:*_*_*_DLINK_FLAGS = -z common-page-size=0x10000
+
+[LibraryClasses]
+  BaseLib|MdePkg/Library/BaseLib/BaseLib.inf
+  BaseMemoryLib|MdePkg/Library/BaseMemoryLib/BaseMemoryLib.inf
+  ArmLib|MdePkg/Library/ArmLib/ArmBaseLib.inf
+  ArmMmuLib|UefiCpuPkg/Library/ArmMmuLib/ArmMmuBaseLib.inf
+  ArmSmcLib|MdePkg/Library/ArmSmcLib/ArmSmcLib.inf
+  ArmGenericTimerCounterLib|ArmPkg/Library/ArmGenericTimerVirtCounterLib/ArmGenericTimerVirtCounterLib.inf
+  CacheMaintenanceLib|ArmPkg/Library/ArmCacheMaintenanceLib/ArmCacheMaintenanceLib.inf
+  CpuExceptionHandlerLib|ArmPkg/Library/ArmExceptionLib/ArmExceptionLib.inf
+  DefaultExceptionHandlerLib|ArmPkg/Library/DefaultExceptionHandlerLib/DefaultExceptionHandlerLib.inf
+  IoLib|MdePkg/Library/BaseIoLibIntrinsic/BaseIoLibIntrinsic.inf
+  TimerLib|ArmPkg/Library/ArmArchTimerLib/ArmArchTimerLib.inf
+  SerialPortLib|MdePkg/Library/BaseSerialPortLibNull/BaseSerialPortLibNull.inf
+  DebugLib|MdePkg/Library/BaseDebugLibNull/BaseDebugLibNull.inf
+  DebugPrintErrorLevelLib|MdePkg/Library/BaseDebugPrintErrorLevelLib/BaseDebugPrintErrorLevelLib.inf
+  DebugAgentLib|MdeModulePkg/Library/DebugAgentLibNull/DebugAgentLibNull.inf
+  PerformanceLib|MdePkg/Library/BasePerformanceLibNull/BasePerformanceLibNull.inf
+  PrintLib|MdePkg/Library/BasePrintLib/BasePrintLib.inf
+  PcdLib|MdePkg/Library/DxePcdLib/DxePcdLib.inf
+  PeCoffLib|MdePkg/Library/BasePeCoffLib/BasePeCoffLib.inf
+  PeCoffGetEntryPointLib|MdePkg/Library/BasePeCoffGetEntryPointLib/BasePeCoffGetEntryPointLib.inf
+  PeCoffExtraActionLib|MdePkg/Library/BasePeCoffExtraActionLibNull/BasePeCoffExtraActionLibNull.inf
+  UefiDecompressLib|MdePkg/Library/BaseUefiDecompressLib/BaseUefiDecompressLib.inf
+  ExtractGuidedSectionLib|MdePkg/Library/DxeExtractGuidedSectionLib/DxeExtractGuidedSectionLib.inf
+  HobLib|MdePkg/Library/DxeHobLib/DxeHobLib.inf
+  MemoryAllocationLib|MdePkg/Library/UefiMemoryAllocationLib/UefiMemoryAllocationLib.inf
+  UefiDriverEntryPoint|MdePkg/Library/UefiDriverEntryPoint/UefiDriverEntryPoint.inf
+  UefiApplicationEntryPoint|MdePkg/Library/UefiApplicationEntryPoint/UefiApplicationEntryPoint.inf
+  DxeCoreEntryPoint|MdePkg/Library/DxeCoreEntryPoint/DxeCoreEntryPoint.inf
+  UefiLib|MdePkg/Library/UefiLib/UefiLib.inf
+  UefiBootServicesTableLib|MdePkg/Library/UefiBootServicesTableLib/UefiBootServicesTableLib.inf
+  UefiRuntimeServicesTableLib|MdePkg/Library/UefiRuntimeServicesTableLib/UefiRuntimeServicesTableLib.inf
+  UefiRuntimeLib|MdePkg/Library/UefiRuntimeLib/UefiRuntimeLib.inf
+  DxeServicesTableLib|MdePkg/Library/DxeServicesTableLib/DxeServicesTableLib.inf
+  DxeServicesLib|MdePkg/Library/DxeServicesLib/DxeServicesLib.inf
+  DevicePathLib|MdePkg/Library/UefiDevicePathLib/UefiDevicePathLib.inf
+  ReportStatusCodeLib|MdePkg/Library/BaseReportStatusCodeLibNull/BaseReportStatusCodeLibNull.inf
+  SecurityManagementLib|MdeModulePkg/Library/DxeSecurityManagementLib/DxeSecurityManagementLib.inf
+  ImagePropertiesRecordLib|MdeModulePkg/Library/ImagePropertiesRecordLib/ImagePropertiesRecordLib.inf
+  UefiHiiServicesLib|MdeModulePkg/Library/UefiHiiServicesLib/UefiHiiServicesLib.inf
+  HiiLib|MdeModulePkg/Library/UefiHiiLib/UefiHiiLib.inf
+  SortLib|MdeModulePkg/Library/UefiSortLib/UefiSortLib.inf
+  BmpSupportLib|MdeModulePkg/Library/BaseBmpSupportLib/BaseBmpSupportLib.inf
+  FrameBufferBltLib|MdeModulePkg/Library/FrameBufferBltLib/FrameBufferBltLib.inf
+  FileHandleLib|MdePkg/Library/UefiFileHandleLib/UefiFileHandleLib.inf
+  ShellLib|ShellPkg/Library/UefiShellLib/UefiShellLib.inf
+  ShellCommandLib|ShellPkg/Library/UefiShellCommandLib/UefiShellCommandLib.inf
+  HandleParsingLib|ShellPkg/Library/UefiHandleParsingLib/UefiHandleParsingLib.inf
+  PciLib|MdePkg/Library/BasePciLibPciExpress/BasePciLibPciExpress.inf
+  PciExpressLib|MdePkg/Library/BasePciExpressLib/BasePciExpressLib.inf
+  AuthVariableLib|MdeModulePkg/Library/AuthVariableLibNull/AuthVariableLibNull.inf
+  VarCheckLib|MdeModulePkg/Library/VarCheckLib/VarCheckLib.inf
+  VariableFlashInfoLib|MdeModulePkg/Library/BaseVariableFlashInfoLib/BaseVariableFlashInfoLib.inf
+  VariablePolicyLib|MdeModulePkg/Library/VariablePolicyLib/VariablePolicyLibRuntimeDxe.inf
+  VariablePolicyHelperLib|MdeModulePkg/Library/VariablePolicyHelperLib/VariablePolicyHelperLib.inf
+  TpmMeasurementLib|MdeModulePkg/Library/TpmMeasurementLibNull/TpmMeasurementLibNull.inf
+  MielFdtLib|mielPkg/Library/MielFdtLib/MielFdtLib.inf
+  MielPlatformLib|mielPkg/Library/MielPlatformLib/MielPlatformLib.inf
+  MielHandoffLib|mielPkg/Library/MielHandoffLib/MielHandoffLib.inf
+  MielFrameBufferLib|mielPkg/Library/MielFrameBufferLib/MielFrameBufferLib.inf
+  MielMemoryPlanLib|mielPkg/Library/MielMemoryPlanLib/MielMemoryPlanLib.inf
+
+[LibraryClasses.common.SEC]
+  DebugLib|mielPkg/Library/MielDebugLib/MielDebugLib.inf
+  PcdLib|MdePkg/Library/BasePcdLibNull/BasePcdLibNull.inf
+  HobLib|EmbeddedPkg/Library/PrePiHobLib/PrePiHobLib.inf
+  MemoryAllocationLib|EmbeddedPkg/Library/PrePiMemoryAllocationLib/PrePiMemoryAllocationLib.inf
+  PrePiLib|EmbeddedPkg/Library/PrePiLib/PrePiLib.inf
+  PrePiHobListPointerLib|ArmPlatformPkg/Library/PrePiHobListPointerLib/PrePiHobListPointerLib.inf
+  ExtractGuidedSectionLib|EmbeddedPkg/Library/PrePiExtractGuidedSectionLib/PrePiExtractGuidedSectionLib.inf
+
+[LibraryClasses.common.DXE_CORE]
+  DebugLib|mielPkg/Library/MielDebugLib/MielDebugCoreLib.inf
+  HobLib|MdePkg/Library/DxeCoreHobLib/DxeCoreHobLib.inf
+  MemoryAllocationLib|MdeModulePkg/Library/DxeCoreMemoryAllocationLib/DxeCoreMemoryAllocationLib.inf
+
+[PcdsFeatureFlag]
+  gMielNativeTokenSpaceGuid.PcdNativeEntryProbe|$(MIEL_ENTRY_PROBE)
+  gMielNativeTokenSpaceGuid.PcdNativeMmuProbe|$(MIEL_MMU_PROBE)
+  gEmbeddedTokenSpaceGuid.PcdPrePiProduceMemoryTypeInformationHob|FALSE
+  gArmTokenSpaceGuid.PcdRemapUnusedMemoryNx|FALSE
+  gEfiMdeModulePkgTokenSpaceGuid.PcdHiiOsRuntimeSupport|FALSE
+  gEfiShellPkgTokenSpaceGuid.PcdShellRequireHiiPlatform|TRUE
+
+[PcdsFixedAtBuild]
+  gArmTokenSpaceGuid.PcdFdBaseAddress|0x40080000
+  gArmTokenSpaceGuid.PcdFdSize|0x800000
+  gArmTokenSpaceGuid.PcdFvBaseAddress|0x40081000
+  gArmTokenSpaceGuid.PcdFvSize|0x7ff000
+  gArmTokenSpaceGuid.PcdSystemMemoryBase|0x43000000
+  gArmTokenSpaceGuid.PcdSystemMemorySize|0x4000000
+  gArmTokenSpaceGuid.PcdGicDistributorBase|0x0c000000
+  gArmTokenSpaceGuid.PcdGicRedistributorsBase|0x0c040000
+  gArmTokenSpaceGuid.PcdGicInterruptInterfaceBase|0
+  gArmTokenSpaceGuid.PcdMonitorConduitHvc|FALSE
+  gEfiMdeModulePkgTokenSpaceGuid.PcdEmuVariableNvModeEnable|TRUE
+  gEfiMdeModulePkgTokenSpaceGuid.PcdVariableStoreSize|0x10000
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableSize|0x10000
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFirmwareVersionString|L"MIEL native experimental 0.1"
+  gEfiShellPkgTokenSpaceGuid.PcdShellSupportLevel|3
+  gEfiShellPkgTokenSpaceGuid.PcdShellPageBreakDefault|FALSE
+
+[PcdsPatchableInModule]
+  gEfiMdeModulePkgTokenSpaceGuid.PcdConOutColumn|0
+  gEfiMdeModulePkgTokenSpaceGuid.PcdConOutRow|0
+
+[Components]
+  mielPkg/Sec/MielSec.inf
+  MdeModulePkg/Core/Dxe/DxeMain.inf
+  MdeModulePkg/Universal/PCD/Dxe/Pcd.inf {
+    <LibraryClasses>
+      # The protocol producer must not depend on its own PCD protocol.
+      PcdLib|MdePkg/Library/BasePcdLibNull/BasePcdLibNull.inf
+  }
+  ArmPkg/Drivers/CpuDxe/CpuDxe.inf
+  ArmPkg/Drivers/ArmGicDxe/ArmGicDxe.inf
+  ArmPkg/Drivers/TimerDxe/TimerDxe.inf
+  MdeModulePkg/Core/RuntimeDxe/RuntimeDxe.inf
+  MdeModulePkg/Universal/SecurityStubDxe/SecurityStubDxe.inf
+  MdeModulePkg/Universal/WatchdogTimerDxe/WatchdogTimer.inf
+  EmbeddedPkg/MetronomeDxe/MetronomeDxe.inf
+  EmbeddedPkg/EmbeddedMonotonicCounter/EmbeddedMonotonicCounter.inf
+  MdeModulePkg/Universal/Variable/RuntimeDxe/VariableRuntimeDxe.inf
+  MdeModulePkg/Universal/DevicePathDxe/DevicePathDxe.inf
+  MdeModulePkg/Universal/Console/ConSplitterDxe/ConSplitterDxe.inf
+  MdeModulePkg/Universal/Console/GraphicsConsoleDxe/GraphicsConsoleDxe.inf
+  MdeModulePkg/Universal/HiiDatabaseDxe/HiiDatabaseDxe.inf
+  MdeModulePkg/Universal/Disk/UnicodeCollation/EnglishDxe/EnglishDxe.inf
+  MdeModulePkg/Universal/FvSimpleFileSystemDxe/FvSimpleFileSystemDxe.inf
+  mielPkg/Drivers/MielRuntimeDxe/MielRuntimeDxe.inf
+  mielPkg/Drivers/MielGopDxe/MielGopDxe.inf
+  mielPkg/Drivers/MielBdsDxe/MielBdsDxe.inf {
+    <LibraryClasses>
+      DebugLib|mielPkg/Library/MielDebugLib/MielDebugLib.inf
+  }
+  ShellPkg/Application/Shell/Shell.inf {
+    <LibraryClasses>
+      DebugLib|mielPkg/Library/MielDebugLib/MielDebugLib.inf
+      NULL|ShellPkg/Library/UefiShellLevel1CommandsLib/UefiShellLevel1CommandsLib.inf
+      NULL|ShellPkg/Library/UefiShellLevel2CommandsLib/UefiShellLevel2CommandsLib.inf
+      NULL|ShellPkg/Library/UefiShellLevel3CommandsLib/UefiShellLevel3CommandsLib.inf
+      NULL|ShellPkg/Library/UefiShellDriver1CommandsLib/UefiShellDriver1CommandsLib.inf
+    <PcdsFixedAtBuild>
+      # Shell installs its protocols in UefiMain, after library constructors.
+      # Its explicit ShellInitialize must bind them after installation.
+      gEfiShellPkgTokenSpaceGuid.PcdShellLibAutoInitialize|FALSE
+  }

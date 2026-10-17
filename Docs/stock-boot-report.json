@@ -1,0 +1,51 @@
+{
+  "header_version": 2,
+  "header_size": 1660,
+  "page_size": 2048,
+  "kernel_size": 12438840,
+  "ramdisk_size": 20080502,
+  "second_size": 0,
+  "dtb_size": 138548,
+  "dtb_offset": 32522240,
+  "kernel_addr": "0x40080000",
+  "ramdisk_addr": "0x47c80000",
+  "second_addr": "0x0",
+  "tags_addr": "0x4bc80000",
+  "dtb_addr": "0x4bc80000",
+  "os_version_encoded": 402653580,
+  "cmdline": "bootopt=64S3,32N2,64N2 buildvariant=user",
+  "boot_sha256": "f82b804775d3d205b774ace88e3a36c65f9500f5df8a312a370322fc2999cf5d",
+  "dtbo_sha256": "3c4ec181ae56a833785bab10bb70b059ed615468be5f6bee189c03d72fd210f7",
+  "dtb_container": "android-dt-table",
+  "base_entries": [
+    {
+      "index": 0,
+      "id": 0,
+      "revision": 0,
+      "custom": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "size": 138484,
+      "sha256": "96ad15c11779be97123c42c5cb0542589810219ead3ac3912159c4e1474fa67d"
+    }
+  ],
+  "dtb_count": 1,
+  "overlays": [
+    {
+      "index": 0,
+      "id": 0,
+      "revision": 0,
+      "custom": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "size": 70701,
+      "sha256": "e49f58738aa3817742eaa519644e3e958f3ff56f290174e0186b58ae18f79c3f"
+    }
+  ]
+}

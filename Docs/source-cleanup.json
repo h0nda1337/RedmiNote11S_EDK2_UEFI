@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-17",
+  "cleanup_baseline_commit": "a8d3b19b97a998b0ddc3c9d57b25cd4b98ffe376",
+  "photographed_shell_source_commit": "52e4a84",
+  "removed_tracked_paths": 329,
+  "bootshim_source_retained": false,
+  "external_device_platforms_retained": false,
+  "edk2_platforms_submodule_retained": false,
+  "retained_project_code_files": 76,
+  "retained_project_code_unchanged": true,
+  "owned_source_repositories_only": true,
+  "external_dependency": {
+    "path": "Common/edk2",
+    "repository": "https://github.com/tianocore/edk2.git",
+    "commit": "b03a21a63e3bd001f52c527e5a57feddb53a690b",
+    "original_licenses_retained": true
+  },
+  "build": {
+    "entrypoint": "build.sh",
+    "host_compile_passed": true,
+    "native_fd_inspection_passed": true,
+    "native_fd_sha256": "cbeb50d923c533dc05e53c87bd05e2ce8cb978e51aca8e241aec0ad789181c58",
+    "byte_identical_to_photographed_shell_fd": true
+  },
+  "tests": {
+    "python_unittest_count": 40,
+    "python_unittests_passed": true,
+    "native_host_sanitizers_passed": true,
+    "root_launcher_bash_syntax_passed": true
+  },
+  "independent_default_branch": "miel-native",
+  "historical_branch": "main",
+  "device_operations_performed_for_cleanup": false
+}
