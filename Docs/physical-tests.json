@@ -41,7 +41,7 @@
       "linux_capture_complete": false,
       "uefi_execution_verified": false,
       "native_bootloader_return_observed": null,
-      "observer_report": "Fastboot; Windows lo detectÃ³ despuÃ©s de reconectar el USB"
+      "observer_report": "Fastboot; Windows lo detectÃƒÂ³ despuÃƒÂ©s de reconectar el USB"
     },
     {
       "name": "native-entry-first",
@@ -69,8 +69,32 @@
       "observer_report": "Azul y blanca",
       "visible_buffer_base": "0x7ca06000",
       "photographic_evidence_available": false
+    },
+    {
+      "name": "native-shell-early-log",
+      "source_commit": "b3528bb",
+      "candidate_sha256": "3c2010095444c2891830fd612907366ec5895ec30072104d7960409caeba0f0c",
+      "partition": "boot_a",
+      "android_before_battery_percent": 60,
+      "stock_restored": true,
+      "stock_android_boot_completed": true,
+      "native_bootloader_return_observed": true,
+      "native_return_elapsed_seconds": 53.313,
+      "native_sec_photographically_observed": true,
+      "exception_level_reported": 1,
+      "fdt_pointer_reported": "0x4bc80000",
+      "psci_version_value_reported": "0x00010001",
+      "gic_declarations_match": true,
+      "handoff_status": "EFI_UNSUPPORTED",
+      "memory_plan_reached": false,
+      "mmu_reached": false,
+      "dxe_reached": false,
+      "uefi_shell_verified": false,
+      "photographic_evidence": "evidence/2026-10-17-sec-handoff-unsupported.jpeg"
     }
   ],
   "native_sec_execution_user_observed": true,
-  "framebuffer_visible_base_user_observed": "0x7ca06000"
+  "framebuffer_visible_base_user_observed": "0x7ca06000",
+  "native_sec_photographically_observed": true,
+  "current_failure_stage": "MielInspectHandoff: EFI_UNSUPPORTED"
 }

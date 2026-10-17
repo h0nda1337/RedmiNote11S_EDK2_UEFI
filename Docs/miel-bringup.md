@@ -192,6 +192,18 @@ mostrar el resultado de GIC, interpretación FDT y plan de memoria. El acceso al
 log compartido se mantiene después de validar el heap. La prueba de host de esta
 separación pasó con la página compartida completa protegida mediante PROT_NONE.
 
+## Fotografía del modo completo
+
+El usuario proporcionó una [foto de la consola SEC](evidence/2026-10-17-sec-handoff-unsupported.md)
+y pidió documentarla en GitHub. Muestra `EL 1 FDT 4BC80000 PSCI 10001`,
+`GIC DECLARATIONS OK` y `HANDOFF: UNSUPPORTED`. La política de memoria no llegó
+a ejecutarse. La condición exacta del intérprete que devuelve `EFI_UNSUPPORTED`
+todavía debe localizarse; la foto no demuestra DXE ni Shell.
+
+Se conserva la imagen pública con su flujo JPEG intacto y sin los metadatos GPS
+del original. La sesión retornó a Fastboot en 53,31 segundos desde la orden del
+host y terminó con stock restaurado y Android arrancado por USB.
+
 ## Fuentes primarias
 
 - Base: https://github.com/linux-mediatek/edk2-mtk/tree/fdb0ef928ac70ff0f2725b4cb302db4d25a55c47

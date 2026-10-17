@@ -74,6 +74,10 @@ adjunta. El teléfono volvió a Fastboot y se verificó Android tras restaurar s
 GOP y Shell siguen pendientes. El modo completo valida las reservas antes de
 habilitar heap y DXE. Evidencias por etapa en `Docs/physical-tests.json`.
 
+**Fotografía del arranque nativo:** [consola SEC en EL1 y `HANDOFF: UNSUPPORTED`](Docs/evidence/2026-10-17-sec-handoff-unsupported.md).
+El fallo actual está en la interpretación del handoff, antes del plan de memoria.
+La sesión terminó restaurando stock y verificando Android.
+
 ---
 
 ## Base original: EDK2 UEFI firmware for MediaTek Platforms
