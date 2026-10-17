@@ -219,6 +219,12 @@ en una consola que convierte las letras a mayúsculas. La longitud no cumple
 la condición anterior de cinco bytes para `okay` con NUL. Stock se restauró
 y Android completó el arranque tras el retorno a Fastboot de 54,28 segundos.
 
+Se añadió compatibilidad estricta para `okay` de cuatro bytes solo en nodos
+de reservas. La prueba conserva la región SSPM y `no-map`, y rechaza esa
+variante en bancos de RAM, estados desconocidos y datos que solo coincidan en
+un prefijo. Pasan ASan/UBSan y las 512 corrupciones del árbol; falta comprobar
+el avance en el teléfono con el FD recompilado.
+
 ## Fuentes primarias
 
 - Base: https://github.com/linux-mediatek/edk2-mtk/tree/fdb0ef928ac70ff0f2725b4cb302db4d25a55c47

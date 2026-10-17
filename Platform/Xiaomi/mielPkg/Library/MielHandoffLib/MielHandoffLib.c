@@ -99,7 +99,8 @@ STATIC EFI_STATUS CellCount (WALK_CONTEXT *Context, CONST CHAR8 *Parent, CONST C
   return EFI_SUCCESS;
 }
 
-STATIC EFI_STATUS ResourceEnabled (WALK_CONTEXT *Context, CONST CHAR8 *Path, BOOLEAN *Enabled)
+STATIC EFI_STATUS ResourceEnabled (WALK_CONTEXT *Context, CONST CHAR8 *Path,
+                                   BOOLEAN Reservation, BOOLEAN *Enabled)
 {
   CONST VOID *Value;
   UINT32 Bytes;
@@ -108,6 +109,12 @@ STATIC EFI_STATUS ResourceEnabled (WALK_CONTEXT *Context, CONST CHAR8 *Path, BOO
   if (Status == EFI_NOT_FOUND) return EFI_SUCCESS;
   if (Status != EFI_SUCCESS) return Status;
   if ((Bytes == 5 && Same (Value, "okay")) || (Bytes == 3 && Same (Value, "ok"))) return EFI_SUCCESS;
+  // LK's observed SSPM reservation status has four bytes without a NUL.
+  // Accept only that exact literal on reservation nodes. This preserves the
+  // reservation; it cannot declare an additional RAM bank or disable a range.
+  CONST UINT8 *Data = Value;
+  if (Reservation && Bytes == 4 && Data[0] == 'o' && Data[1] == 'k' &&
+      Data[2] == 'a' && Data[3] == 'y') return EFI_SUCCESS;
   if (Bytes == 9 && Same (Value, "disabled")) { *Enabled = FALSE; return EFI_SUCCESS; }
   return Unsupported (Context, "RESOURCE_STATUS", Path, "status", Value, Bytes);
 }
@@ -190,7 +197,7 @@ STATIC EFI_STATUS EFIAPI VisitNode (CONST CHAR8 *Path, VOID *UserContext)
     for (Index = 1; Path[Index]; Index++)
       if (Path[Index] == '/')
         return Unsupported (Context, "NESTED_MEMORY", Path, "device_type", Value, Bytes);
-    Status = ResourceEnabled (Context, Path, &Enabled);
+    Status = ResourceEnabled (Context, Path, FALSE, &Enabled);
     if (Status != EFI_SUCCESS || !Enabled) return Status;
     return RegisterRanges (Context, Path, TRUE);
   }
@@ -201,7 +208,7 @@ STATIC EFI_STATUS EFIAPI VisitNode (CONST CHAR8 *Path, VOID *UserContext)
   }
   if (!Reserved || Path[Index] == 0) return EFI_SUCCESS;
   for (; Path[Index]; Index++) if (Path[Index] == '/') return EFI_SUCCESS;
-  Status = ResourceEnabled (Context, Path, &Enabled);
+  Status = ResourceEnabled (Context, Path, TRUE, &Enabled);
   if (Status != EFI_SUCCESS || !Enabled) return Status;
   return RegisterRanges (Context, Path, FALSE);
 }

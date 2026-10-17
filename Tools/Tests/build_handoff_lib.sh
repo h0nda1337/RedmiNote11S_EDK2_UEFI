@@ -31,6 +31,12 @@ cat > Local/Build/Tests/handoff/synthetic.dts <<'EOF'
     ranges;
     framebuffer@90000000 { reg = <0 0x90000000 0 0x2000000>; no-map; };
     secure@78800000 { reg = <0 0x78800000 0 0x5800000>; no-map; };
+    // LK's observed SSPM status is four bytes, not a terminated DTS string.
+    reserve-memory-sspm_share {
+      status = [6f 6b 61 79];
+      reg = <0 0x57400000 0 0x100000>;
+      no-map;
+    };
     dynamic { size = <0 0x100000>; no-map; };
     unresolved { no-map; };
     placeholder { };

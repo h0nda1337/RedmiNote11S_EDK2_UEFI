@@ -37,7 +37,7 @@ static void fixture_checks(UINT8 *data, UINTN size)
   UINT8 *changed = malloc(size);
   assert(changed && MielInspectHandoff(data, size, 0x57300000, &info) == EFI_SUCCESS);
   assert(info.RamCount == 1 && info.Ram[0].Base == 0x40000000 && info.Ram[0].Length == 0x180000000ULL);
-  assert(info.ReservedCount == 5 && info.DynamicReservationCount == 1 && info.UnresolvedReservationCount == 1);
+  assert(info.ReservedCount == 6 && info.DynamicReservationCount == 1 && info.UnresolvedReservationCount == 1);
   assert(info.EmptyReservationNodeCount == 1);
   assert(info.ReservedFlags[0] == (MIEL_RESERVATION_NO_MAP | MIEL_RESERVATION_MEMRESERVE));
   assert(info.FdtPhysicalAddressRecorded && info.PsciSmcDeclared);
@@ -50,12 +50,47 @@ static void fixture_checks(UINT8 *data, UINTN size)
                                 info.Reserved, info.ReservedCount));
   assert(!MielLoadRegionIsUsable(TRUE, 0x57300000, 4096, info.Ram, info.RamCount,
                                 info.Reserved, info.ReservedCount));
+  // The LK quirk must retain the entire SSPM reservation and its no-map flag.
+  assert(!MielLoadRegionIsUsable(TRUE, 0x57400000, 0x100000, info.Ram, info.RamCount,
+                                info.Reserved, info.ReservedCount));
+  unsigned sspm_ranges = 0;
+  for (UINTN i = 0; i < info.ReservedCount; i++)
+    if (info.Reserved[i].Base == 0x57400000 && info.Reserved[i].Length == 0x100000) {
+      assert(info.ReservedFlags[i] == MIEL_RESERVATION_NO_MAP);
+      sspm_ranges++;
+    }
+  assert(sspm_ranges == 1);
   before = info;
   unsigned successful_trace_calls = 0;
   assert(MielInspectHandoffWithTrace(data, size, 0x57300000, &info,
                                     trace_status, &successful_trace_calls) == EFI_SUCCESS);
   assert(successful_trace_calls == 0 && memcmp(&info, &before, sizeof info) == 0);
   assert(MielInspectHandoff(data, size, 0x200000000ULL, &info) == EFI_COMPROMISED_DATA);
+  assert(memcmp(&info, &before, sizeof info) == 0);
+  // Exact, length-bounded compatibility: never accept uppercase, prefixes,
+  // embedded NULs or an unknown four-byte status as an enabled reservation.
+  static const UINT8 invalid_status[][4] = {{'O','K','A','Y'}, {'o','k',0,0},
+                                           {'o','k','a',0}, {'f','a','i','l'}};
+  for (UINTN i = 0; i < sizeof invalid_status / sizeof invalid_status[0]; i++) {
+    memcpy(changed, data, size);
+    assert(MielFdtOpen(changed, size, &view));
+    assert(MielFdtProperty(&view, "/reserved-memory/reserve-memory-sspm_share", "status",
+                           &value, &bytes) == EFI_SUCCESS && bytes == 4);
+    memcpy(changed + ((const UINT8 *)value - changed), invalid_status[i], 4);
+    assert(MielInspectHandoff(changed, size, 0, &info) == EFI_UNSUPPORTED);
+    assert(memcmp(&info, &before, sizeof info) == 0);
+  }
+  // Do not apply the reservation quirk to a RAM bank. Shorten the five-byte
+  // property in place and use a valid FDT_NOP for the freed aligned word.
+  memcpy(changed, data, size);
+  assert(MielFdtOpen(changed, size, &view));
+  assert(MielFdtProperty(&view, "/memory@40000000", "status", &value, &bytes) == EFI_SUCCESS && bytes == 5);
+  UINT8 *ram_status = changed + ((const UINT8 *)value - changed);
+  static const UINT8 four_be[4] = {0, 0, 0, 4};
+  memcpy(ram_status - 8, four_be, 4);
+  memcpy(ram_status + 4, four_be, 4);
+  assert(MielFdtOpen(changed, size, &view));
+  assert(MielInspectHandoff(changed, size, 0, &info) == EFI_UNSUPPORTED);
   assert(memcmp(&info, &before, sizeof info) == 0);
   assert(MielInspectHandoff(data, size, 0x57300001, &info) == EFI_COMPROMISED_DATA);
   assert(memcmp(&info, &before, sizeof info) == 0);

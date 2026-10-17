@@ -24,12 +24,30 @@ Esta prueba añade la traza que faltaba en la
 La consola dibuja las letras en mayúsculas; la foto por sí sola no distingue
 las mayúsculas y minúsculas de los cuatro bytes originales.
 
+El análisis estático del LK stock identifica la misma ruta de nodo. En el
+offset `0x1f850` llama a una rutina con semántica de `strlen` sobre el literal
+minúsculo `okay`, guarda el resultado como quinto argumento y, en `0x1f860`,
+lo entrega a la rutina de escritura de propiedades con nombre `status`.
+No suma uno a la longitud. Esto apoya de forma independiente la interpretación
+de cuatro bytes minúsculos sin NUL; es evidencia estática, no una captura cruda
+del FDT de este arranque. El binario de referencia permanece privado.
+SHA-256 del payload LK analizado:
+`56a596c303312a6aeacb8ba322fb0d63fdc933f8cbcbdce5b9d21e3644606c61`.
+
 La condición exacta que detiene el código probado está identificada:
 `ResourceEnabled` solo reconoce `okay` con longitud 5, incluido el NUL final.
 El árbol entregado en este arranque declara una longitud de **4** y muestra
-`OKAY`. Es consistente con `okay` sin terminador; se preparará una comparación
-acotada para esa variante del handoff, conservando el rechazo de estados
-desconocidos y las comprobaciones de RAM y reservas.
+`OKAY`. Es consistente con `okay` sin terminador. La
+[especificación Devicetree](https://devicetree-specification.readthedocs.io/en/stable/devicetree-basics.html#property-values)
+define los valores de tipo string con un NUL final; esta variante se trata como
+una excepción de compatibilidad del handoff.
+
+La corrección preparada acepta solo los cuatro bytes minúsculos `okay` en
+nodos de reservas. No aplica la excepción a bancos de RAM ni reconoce estados
+desconocidos. Las pruebas de host con ASan/UBSan verifican que la reserva SSPM
+completa y su atributo `no-map` se conservan, y rechazan mayúsculas, prefijos,
+NULs incrustados y estados desconocidos. La corrección queda pendiente de
+verificación física; esta fotografía corresponde al código anterior al cambio.
 
 Todavía no se alcanzan el plan de memoria, MMU, DXE ni Shell. La foto tampoco
 demuestra un problema en la memoria SSPM ni autoriza reutilizar su reserva.
