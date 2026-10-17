@@ -91,10 +91,33 @@
       "dxe_reached": false,
       "uefi_shell_verified": false,
       "photographic_evidence": "evidence/2026-10-17-sec-handoff-unsupported.jpeg"
+    },
+    {
+      "name": "native-shell-handoff-trace",
+      "source_commit": "b932cbc",
+      "candidate_sha256": "eb002a36e3743c1edc5d1225ebc6ddd72b6347e84e5b7321fb56bda5ec37167d",
+      "partition": "boot_a",
+      "android_before_battery_percent": 62,
+      "stock_restored": true,
+      "stock_android_boot_completed": true,
+      "native_bootloader_return_observed": true,
+      "native_return_elapsed_seconds": 54.282,
+      "native_sec_photographically_observed": true,
+      "handoff_status": "EFI_UNSUPPORTED",
+      "trace_reason": "RESOURCE_STATUS",
+      "trace_node": "/reserved-memory/reserve-memory-sspm_share",
+      "trace_property": "status",
+      "trace_property_bytes": 4,
+      "trace_value_displayed_uppercase": "OKAY",
+      "memory_plan_reached": false,
+      "mmu_reached": false,
+      "dxe_reached": false,
+      "uefi_shell_verified": false,
+      "photographic_evidence": "evidence/2026-10-17-sec-status-length.jpeg"
     }
   ],
   "native_sec_execution_user_observed": true,
   "framebuffer_visible_base_user_observed": "0x7ca06000",
   "native_sec_photographically_observed": true,
-  "current_failure_stage": "MielInspectHandoff: EFI_UNSUPPORTED"
+  "current_failure_stage": "MielInspectHandoff: RESOURCE_STATUS; SSPM status length 4"
 }

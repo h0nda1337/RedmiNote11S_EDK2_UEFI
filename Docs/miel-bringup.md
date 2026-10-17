@@ -212,6 +212,13 @@ su política y solo publica el handoff si termina correctamente. Las pruebas
 con ASan/UBSan comprueban que la traza identifica un `status` rechazado sin
 modificar el árbol ni el resultado, y que no se invoca para un árbol aceptado.
 
+La [segunda foto](evidence/2026-10-17-sec-status-length.md), obtenida con
+`b932cbc`, localiza el rechazo en la propiedad `status` de
+`/reserved-memory/reserve-memory-sspm_share`: cuatro bytes y `VALUE OKAY`
+en una consola que convierte las letras a mayúsculas. La longitud no cumple
+la condición anterior de cinco bytes para `okay` con NUL. Stock se restauró
+y Android completó el arranque tras el retorno a Fastboot de 54,28 segundos.
+
 ## Fuentes primarias
 
 - Base: https://github.com/linux-mediatek/edk2-mtk/tree/fdb0ef928ac70ff0f2725b4cb302db4d25a55c47

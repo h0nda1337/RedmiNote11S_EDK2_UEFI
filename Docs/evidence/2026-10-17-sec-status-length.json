@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "source": "User-supplied physical-phone photograph",
+  "source_original_sha256": "5c8ab556047427f90583d6debd5f36a7c7e384c9cdb1e67d94f006fee2fc85f5",
+  "published_sha256": "03054849bb9b84577270360cb3ca69d62221b022f3af00a780fde62dc5496d70",
+  "published_bytes": 2462197,
+  "primary_jpeg_scan_sha256": "43d0d2f4a8cb4519e832bd8e82aaa3c6b6b43154fa4c57a6e3e89dcee7df33ed",
+  "primary_scan_preserved_byte_for_byte": true,
+  "pixel_recompression": false,
+  "orientation": 6,
+  "metadata_removed": [
+    "0xe1",
+    "0xea"
+  ],
+  "gps_metadata_removed": true,
+  "icc_color_profile_retained": true,
+  "generated_or_reconstructed_image": false
+}

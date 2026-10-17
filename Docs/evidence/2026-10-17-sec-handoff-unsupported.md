@@ -60,3 +60,6 @@ Los hashes del original, la copia y el flujo JPEG están en el
 El siguiente paso es instrumentar el intérprete para identificar el nodo o la
 propiedad que devuelve `EFI_UNSUPPORTED`, manteniendo las comprobaciones de RAM
 y reservas antes de habilitar el heap.
+
+Actualización: una [segunda fotografía con traza](2026-10-17-sec-status-length.md)
+localiza el rechazo en `status` de `reserve-memory-sspm_share`, con longitud 4.

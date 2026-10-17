@@ -76,6 +76,9 @@ habilitar heap y DXE. Evidencias por etapa en `Docs/physical-tests.json`.
 
 **Fotografía del arranque nativo:** [consola SEC en EL1 y `HANDOFF: UNSUPPORTED`](Docs/evidence/2026-10-17-sec-handoff-unsupported.md).
 El fallo actual está en la interpretación del handoff, antes del plan de memoria.
+La [segunda fotografía con traza](Docs/evidence/2026-10-17-sec-status-length.md)
+lo localiza en `status` de `reserve-memory-sspm_share`: longitud 4 y valor
+visible `OKAY`; el intérprete exigía el NUL final para ese estado.
 La sesión terminó restaurando stock y verificando Android.
 
 ---

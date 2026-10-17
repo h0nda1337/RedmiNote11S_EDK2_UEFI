@@ -27,7 +27,7 @@
   "native_sec_execution_user_observed": true,
   "uefi_shell_verified": false,
   "native_sec_photographically_observed": true,
-  "current_failure_stage": "MielInspectHandoff: EFI_UNSUPPORTED",
+  "current_failure_stage": "MielInspectHandoff: RESOURCE_STATUS; SSPM status length 4",
   "fdt_pointer_reported": "0x4bc80000",
   "runtime_fdt_captured_on_host": false,
   "live_fdt_pointer_reported": true,
