@@ -1,0 +1,12 @@
+## @file
+# Initial MT6781 definitions; not a complete SoC implementation.
+# SPDX-License-Identifier: BSD-2-Clause
+##
+[Defines]
+  DEC_SPECIFICATION              = 0x0001001A
+  PACKAGE_NAME                   = MT6781Pkg
+  PACKAGE_GUID                   = B2A347D2-B339-4243-B73D-22468C0CF9E1
+  PACKAGE_VERSION                = 0.1
+
+[Includes]
+  Include

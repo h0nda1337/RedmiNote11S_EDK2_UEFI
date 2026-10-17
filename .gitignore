@@ -11,3 +11,6 @@ Conf
 *.fd
 *.pyc
 *__pycache__*
+
+# Device captures, vendor firmware and downloaded reference sources stay local.
+/Local/
