@@ -9,7 +9,18 @@ typedef struct {
   CONST MIEL_FDT_VIEW *View;
   MIEL_BOOT_HANDOFF *Info;
   CONST CHAR8 *ChosenPath;
+  MIEL_HANDOFF_TRACE Trace;
+  VOID *TraceContext;
 } WALK_CONTEXT;
+
+STATIC EFI_STATUS Unsupported (WALK_CONTEXT *Context, CONST CHAR8 *Reason,
+                              CONST CHAR8 *Path, CONST CHAR8 *Property,
+                              CONST VOID *Value, UINT32 Bytes)
+{
+  if (Context->Trace != NULL)
+    Context->Trace (Reason, Path, Property, Value, Bytes, Context->TraceContext);
+  return EFI_UNSUPPORTED;
+}
 
 STATIC UINT32 Be32 (CONST UINT8 *P)
 {
@@ -74,30 +85,31 @@ STATIC EFI_STATUS AppendRange (MIEL_BOOT_HANDOFF *Info, UINT64 Base, UINT64 Leng
   return EFI_SUCCESS;
 }
 
-STATIC EFI_STATUS CellCount (CONST MIEL_FDT_VIEW *View, CONST CHAR8 *Parent, CONST CHAR8 *Name,
+STATIC EFI_STATUS CellCount (WALK_CONTEXT *Context, CONST CHAR8 *Parent, CONST CHAR8 *Name,
                             UINT32 Default, UINT32 *Count)
 {
   CONST VOID *Value;
   UINT32 Bytes;
-  EFI_STATUS Status = MielFdtProperty (View, Parent, Name, &Value, &Bytes);
+  EFI_STATUS Status = MielFdtProperty (Context->View, Parent, Name, &Value, &Bytes);
   if (Status == EFI_NOT_FOUND) { *Count = Default; return EFI_SUCCESS; }
   if (Status != EFI_SUCCESS) return Status;
-  if (Bytes != 4 || Be32 (Value) < 1 || Be32 (Value) > 2) return EFI_UNSUPPORTED;
+  if (Bytes != 4 || Be32 (Value) < 1 || Be32 (Value) > 2)
+    return Unsupported (Context, "CELL_COUNT", Parent, Name, Value, Bytes);
   *Count = Be32 (Value);
   return EFI_SUCCESS;
 }
 
-STATIC EFI_STATUS ResourceEnabled (CONST MIEL_FDT_VIEW *View, CONST CHAR8 *Path, BOOLEAN *Enabled)
+STATIC EFI_STATUS ResourceEnabled (WALK_CONTEXT *Context, CONST CHAR8 *Path, BOOLEAN *Enabled)
 {
   CONST VOID *Value;
   UINT32 Bytes;
-  EFI_STATUS Status = MielFdtProperty (View, Path, "status", &Value, &Bytes);
+  EFI_STATUS Status = MielFdtProperty (Context->View, Path, "status", &Value, &Bytes);
   *Enabled = TRUE;
   if (Status == EFI_NOT_FOUND) return EFI_SUCCESS;
   if (Status != EFI_SUCCESS) return Status;
   if ((Bytes == 5 && Same (Value, "okay")) || (Bytes == 3 && Same (Value, "ok"))) return EFI_SUCCESS;
   if (Bytes == 9 && Same (Value, "disabled")) { *Enabled = FALSE; return EFI_SUCCESS; }
-  return EFI_UNSUPPORTED;
+  return Unsupported (Context, "RESOURCE_STATUS", Path, "status", Value, Bytes);
 }
 
 STATIC EFI_STATUS RegisterRanges (WALK_CONTEXT *Context, CONST CHAR8 *Path, BOOLEAN Ram)
@@ -115,7 +127,8 @@ STATIC EFI_STATUS RegisterRanges (WALK_CONTEXT *Context, CONST CHAR8 *Path, BOOL
   Parent[LastSlash == 0 ? 1 : LastSlash] = 0;
   if (!Ram) {
     Status = MielFdtProperty (Context->View, Parent, "ranges", &Value, &Bytes);
-    if (Status == EFI_SUCCESS && Bytes != 0) return EFI_UNSUPPORTED;
+    if (Status == EFI_SUCCESS && Bytes != 0)
+      return Unsupported (Context, "RESERVE_TRANSLATION", Parent, "ranges", Value, Bytes);
     if (Status != EFI_SUCCESS && Status != EFI_NOT_FOUND) return Status;
     Status = MielFdtProperty (Context->View, Path, "no-map", &Value, &Bytes);
     if (Status == EFI_SUCCESS) {
@@ -127,9 +140,9 @@ STATIC EFI_STATUS RegisterRanges (WALK_CONTEXT *Context, CONST CHAR8 *Path, BOOL
       if (Bytes != 0 || Flags != 0) return EFI_COMPROMISED_DATA;
     } else if (Status != EFI_NOT_FOUND) return Status;
   }
-  Status = CellCount (Context->View, Parent, "#address-cells", 2, &AddressCells);
+  Status = CellCount (Context, Parent, "#address-cells", 2, &AddressCells);
   if (Status != EFI_SUCCESS) return Status;
-  Status = CellCount (Context->View, Parent, "#size-cells", 1, &SizeCells);
+  Status = CellCount (Context, Parent, "#size-cells", 1, &SizeCells);
   if (Status != EFI_SUCCESS) return Status;
   Status = MielFdtProperty (Context->View, Path, "reg", &Value, &Bytes);
   if (Status == EFI_NOT_FOUND && !Ram) {
@@ -172,9 +185,12 @@ STATIC EFI_STATUS EFIAPI VisitNode (CONST CHAR8 *Path, VOID *UserContext)
   }
   EFI_STATUS Status = MielFdtProperty (Context->View, Path, "device_type", &Value, &Bytes);
   if (Status == EFI_SUCCESS && Bytes == 7 && Same (Value, "memory")) {
-    if (Path[1] == 0) return EFI_UNSUPPORTED;
-    for (Index = 1; Path[Index]; Index++) if (Path[Index] == '/') return EFI_UNSUPPORTED;
-    Status = ResourceEnabled (Context->View, Path, &Enabled);
+    if (Path[1] == 0)
+      return Unsupported (Context, "ROOT_MEMORY_TYPE", Path, "device_type", Value, Bytes);
+    for (Index = 1; Path[Index]; Index++)
+      if (Path[Index] == '/')
+        return Unsupported (Context, "NESTED_MEMORY", Path, "device_type", Value, Bytes);
+    Status = ResourceEnabled (Context, Path, &Enabled);
     if (Status != EFI_SUCCESS || !Enabled) return Status;
     return RegisterRanges (Context, Path, TRUE);
   }
@@ -185,7 +201,7 @@ STATIC EFI_STATUS EFIAPI VisitNode (CONST CHAR8 *Path, VOID *UserContext)
   }
   if (!Reserved || Path[Index] == 0) return EFI_SUCCESS;
   for (; Path[Index]; Index++) if (Path[Index] == '/') return EFI_SUCCESS;
-  Status = ResourceEnabled (Context->View, Path, &Enabled);
+  Status = ResourceEnabled (Context, Path, &Enabled);
   if (Status != EFI_SUCCESS || !Enabled) return Status;
   return RegisterRanges (Context, Path, FALSE);
 }
@@ -235,14 +251,15 @@ STATIC EFI_STATUS ReadChosen (CONST MIEL_FDT_VIEW *View, CONST CHAR8 *Path, MIEL
   return AppendRange (Info, Start, End - Start, FALSE, MIEL_RESERVATION_BOOT_DATA);
 }
 
-EFI_STATUS EFIAPI MielInspectHandoff (
+EFI_STATUS EFIAPI MielInspectHandoffWithTrace (
   IN CONST VOID *Fdt, IN UINTN Bytes, IN UINT64 PhysicalFdtBase,
-  OUT MIEL_BOOT_HANDOFF *Handoff
+  OUT MIEL_BOOT_HANDOFF *Handoff, IN MIEL_HANDOFF_TRACE Trace OPTIONAL,
+  IN VOID *TraceContext OPTIONAL
   )
 {
   MIEL_FDT_VIEW View;
   MIEL_BOOT_HANDOFF Candidate;
-  WALK_CONTEXT Context = {&View, &Candidate, NULL};
+  WALK_CONTEXT Context = {&View, &Candidate, NULL, Trace, TraceContext};
   CONST VOID *Value;
   UINT32 Size;
   UINTN Index;
@@ -256,7 +273,8 @@ EFI_STATUS EFIAPI MielInspectHandoff (
   for (Index = 0; Index < sizeof (Candidate); Index++) Clear[Index] = 0;
   Status = MielFdtProperty (&View, "/", "compatible", &Value, &Size);
   if (Status != EFI_SUCCESS) return Status;
-  if (!StringListHas (Value, Size, "mediatek,MT6781")) return EFI_UNSUPPORTED;
+  if (!StringListHas (Value, Size, "mediatek,MT6781"))
+    return Unsupported (&Context, "PLATFORM_COMPAT", "/", "compatible", Value, Size);
   for (Index = 0; Index < View.ReserveCount; Index++) {
     MIEL_MEMORY_RANGE Range;
     if (!MielFdtReservation (&View, (UINT32)Index, &Range)) return EFI_COMPROMISED_DATA;
@@ -272,10 +290,11 @@ EFI_STATUS EFIAPI MielInspectHandoff (
   Status = MielFdtProperty (&View, "/psci", "compatible", &Value, &Size);
   if (Status != EFI_SUCCESS) return Status;
   if (!StringListHas (Value, Size, "arm,psci-1.0") && !StringListHas (Value, Size, "arm,psci-0.2"))
-    return EFI_UNSUPPORTED;
+    return Unsupported (&Context, "PSCI_COMPAT", "/psci", "compatible", Value, Size);
   Status = MielFdtProperty (&View, "/psci", "method", &Value, &Size);
   if (Status != EFI_SUCCESS) return Status;
-  if (Size != 4 || !Same (Value, "smc")) return EFI_UNSUPPORTED;
+  if (Size != 4 || !Same (Value, "smc"))
+    return Unsupported (&Context, "PSCI_METHOD", "/psci", "method", Value, Size);
   Candidate.PsciSmcDeclared = TRUE;
   if (PhysicalFdtBase != 0) {
     if ((PhysicalFdtBase & 7) != 0 || !MielLoadRegionIsUsable (TRUE, PhysicalFdtBase, View.TotalBytes,
@@ -298,4 +317,12 @@ EFI_STATUS EFIAPI MielInspectHandoff (
   CONST UINT8 *Source = (CONST UINT8 *)&Candidate;
   for (Index = 0; Index < sizeof (Candidate); Index++) Destination[Index] = Source[Index];
   return EFI_SUCCESS;
+}
+
+EFI_STATUS EFIAPI MielInspectHandoff (
+  IN CONST VOID *Fdt, IN UINTN Bytes, IN UINT64 PhysicalFdtBase,
+  OUT MIEL_BOOT_HANDOFF *Handoff
+  )
+{
+  return MielInspectHandoffWithTrace (Fdt, Bytes, PhysicalFdtBase, Handoff, NULL, NULL);
 }

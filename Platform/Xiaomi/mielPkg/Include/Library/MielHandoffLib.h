@@ -49,4 +49,18 @@ EFI_STATUS EFIAPI MielInspectHandoff (
   OUT MIEL_BOOT_HANDOFF *Handoff
   );
 
+/* Optional synchronous diagnostics on an unsupported binding. All string/data
+ * arguments are borrowed for the callback only; the callback must not alter
+ * the tree. No heap or hardware access is added to the interpreter itself.
+ */
+typedef VOID (EFIAPI *MIEL_HANDOFF_TRACE) (
+  CONST CHAR8 *Reason, CONST CHAR8 *Path, CONST CHAR8 *Property,
+  CONST VOID *Value, UINT32 Bytes, VOID *Context
+  );
+EFI_STATUS EFIAPI MielInspectHandoffWithTrace (
+  IN CONST VOID *Fdt, IN UINTN Bytes, IN UINT64 PhysicalFdtBase,
+  OUT MIEL_BOOT_HANDOFF *Handoff,
+  IN MIEL_HANDOFF_TRACE Trace OPTIONAL, IN VOID *TraceContext OPTIONAL
+  );
+
 #endif

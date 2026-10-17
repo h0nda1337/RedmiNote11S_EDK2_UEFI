@@ -204,6 +204,14 @@ Se conserva la imagen pública con su flujo JPEG intacto y sin los metadatos GPS
 del original. La sesión retornó a Fastboot en 53,31 segundos desde la orden del
 host y terminó con stock restaurado y Android arrancado por USB.
 
+El DTB stock con el overlay aplicado sí pasa el intérprete en host. Para localizar
+la diferencia del árbol que LK entrega en ejecución se añadió un callback
+síncrono opcional: muestra motivo, ruta, propiedad, tamaño y una vista ASCII
+acotada cuando un binding devuelve `EFI_UNSUPPORTED`. El intérprete conserva
+su política y solo publica el handoff si termina correctamente. Las pruebas
+con ASan/UBSan comprueban que la traza identifica un `status` rechazado sin
+modificar el árbol ni el resultado, y que no se invoca para un árbol aceptado.
+
 ## Fuentes primarias
 
 - Base: https://github.com/linux-mediatek/edk2-mtk/tree/fdb0ef928ac70ff0f2725b4cb302db4d25a55c47

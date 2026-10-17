@@ -162,6 +162,20 @@ STATIC VOID MapRegion (ARM_MEMORY_REGION_DESCRIPTOR *Map, UINTN *Count,
   (*Count)++;
 }
 
+STATIC VOID EFIAPI HandoffUnsupported (CONST CHAR8 *Reason, CONST CHAR8 *Path,
+                                      CONST CHAR8 *Property, CONST VOID *Value,
+                                      UINT32 Bytes, VOID *Context)
+{
+  CHAR8 Preview[33];
+  CONST UINT8 *Data = Value;
+  (VOID)Context;
+  ZeroMem (Preview, sizeof (Preview));
+  for (UINTN I = 0; Data != NULL && I < Bytes && I < sizeof (Preview) - 1; I++)
+    Preview[I] = Data[I] >= 32 && Data[I] <= 126 ? (CHAR8)Data[I] : '.';
+  DEBUG ((DEBUG_INFO, "HANDOFF STOP: %a\nNODE %a\nPROPERTY %a SIZE %u\nVALUE %a\n",
+          Reason, Path, Property, Bytes, Preview));
+}
+
 STATIC VOID EFIAPI ContinueBoot (VOID *Context, VOID *Unused)
 {
   BOOT_STATE *State = Context;
@@ -277,7 +291,8 @@ VOID EFIAPI MielSecMain (IN CONST MIEL_SEC_ENTRY_CONTEXT *Entry)
       !RegisterMatches (&View, "/interrupt-controller", MIEL_NATIVE_GICR_BASE, 0x200000, 16)) Stop ();
   DEBUG ((DEBUG_INFO, "GIC DECLARATIONS OK\n"));
   State.Entry = Entry;
-  Status = MielInspectHandoff ((CONST VOID *)(UINTN)Fdt, (UINTN)Total, Fdt, &State.Handoff);
+  Status = MielInspectHandoffWithTrace ((CONST VOID *)(UINTN)Fdt, (UINTN)Total, Fdt,
+                                      &State.Handoff, HandoffUnsupported, NULL);
   DEBUG ((DEBUG_INFO, "HANDOFF: %r\n", Status));
   if (Status != EFI_SUCCESS) Stop ();
   DEBUG ((DEBUG_INFO, "RAM %u RESERVED %u DYNAMIC %u UNRESOLVED %u\n", (UINT32)State.Handoff.RamCount,

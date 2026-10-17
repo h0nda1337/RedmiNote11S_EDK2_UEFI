@@ -17,6 +17,17 @@ static UINT8 *load(const char *path, UINTN *size)
   fclose(f); *size = (UINTN)n; return p;
 }
 
+static VOID EFIAPI trace_status(CONST CHAR8 *reason, CONST CHAR8 *path,
+                               CONST CHAR8 *property, CONST VOID *value,
+                               UINT32 bytes, VOID *context)
+{
+  unsigned *calls = context;
+  assert(strcmp(reason, "RESOURCE_STATUS") == 0);
+  assert(strcmp(path, "/memory@40000000") == 0 && strcmp(property, "status") == 0);
+  assert(bytes == 5 && memcmp(value, "fail", 5) == 0);
+  (*calls)++;
+}
+
 static void fixture_checks(UINT8 *data, UINTN size)
 {
   MIEL_BOOT_HANDOFF info, before;
@@ -40,6 +51,10 @@ static void fixture_checks(UINT8 *data, UINTN size)
   assert(!MielLoadRegionIsUsable(TRUE, 0x57300000, 4096, info.Ram, info.RamCount,
                                 info.Reserved, info.ReservedCount));
   before = info;
+  unsigned successful_trace_calls = 0;
+  assert(MielInspectHandoffWithTrace(data, size, 0x57300000, &info,
+                                    trace_status, &successful_trace_calls) == EFI_SUCCESS);
+  assert(successful_trace_calls == 0 && memcmp(&info, &before, sizeof info) == 0);
   assert(MielInspectHandoff(data, size, 0x200000000ULL, &info) == EFI_COMPROMISED_DATA);
   assert(memcmp(&info, &before, sizeof info) == 0);
   assert(MielInspectHandoff(data, size, 0x57300001, &info) == EFI_COMPROMISED_DATA);
@@ -57,6 +72,12 @@ static void fixture_checks(UINT8 *data, UINTN size)
     if (i == 3) memcpy(p, "fail", 5); // Unavailable memory must not become a usable bank.
     assert(MielInspectHandoff(changed, size, 0, &info) != EFI_SUCCESS);
     assert(memcmp(&info, &before, sizeof info) == 0);
+    if (i == 3) {
+      unsigned calls = 0;
+      assert(MielInspectHandoffWithTrace(changed, size, 0, &info, trace_status, &calls) == EFI_UNSUPPORTED);
+      assert(calls == 1 && memcmp(&info, &before, sizeof info) == 0);
+      assert(memcmp(p, "fail", 5) == 0);
+    }
   }
   UINT32 random = 0x196c7305;
   for (UINTN i = 0; i < 512; i++) {
