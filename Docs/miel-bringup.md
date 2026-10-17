@@ -245,6 +245,11 @@ privados permanecen en G:/F:.
 
 ## Fuentes primarias
 
+El árbol activo se limpió después de esta sesión y su rama principal es ahora
+`miel-native`. El historial previo permanece en `main`. La
+[política de fuentes](source-policy.md) registra la retirada de BootShim y de
+las plataformas heredadas y la conservación de EDK2 como dependencia explícita.
+
 - Base: https://github.com/linux-mediatek/edk2-mtk/tree/fdb0ef928ac70ff0f2725b4cb302db4d25a55c47
 - Fuente Xiaomi MT6781: https://github.com/MiCode/Xiaomi_Kernel_OpenSource/blob/32022887f842ec64e317fc22745fedf35e982837/arch/arm64/boot/dts/mediatek/mt6781.dts
 - Placa fleur: https://github.com/MiCode/Xiaomi_Kernel_OpenSource/blob/32022887f842ec64e317fc22745fedf35e982837/arch/arm64/boot/dts/mediatek/fleur.dts

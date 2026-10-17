@@ -1,17 +1,6 @@
-Language: Cpp
-BreakBeforeBraces: Stroustrup
-PointerAlignment: Right
+# Formatting preferences for the miel port.
+BasedOnStyle: LLVM
 IndentWidth: 2
-AccessModifierOffset: 0
-ColumnLimit: 80
-NamespaceIndentation: All
-AlignTrailingComments: true
-AllowAllParametersOfDeclarationOnNextLine: true
-AlwaysBreakTemplateDeclarations: true
-AlignAfterOpenBracket: AlwaysBreak
+ColumnLimit: 100
+BreakBeforeBraces: Allman
 UseTab: Never
-IncludeBlocks: Preserve
-AlignConsecutiveDeclarations: true
-AlignConsecutiveAssignments: true
-SpacesInParentheses: false
-SpaceBeforeParens: ControlStatements

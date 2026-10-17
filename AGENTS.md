@@ -12,6 +12,12 @@
   El resto debe ser original de este port o proceder de sus repositorios
   `h0nda1337/*`, registrando origen, commit y autoría. No utilizar TWRP, Magisk
   ni otros payloads externos para las pruebas.
+- La rama principal independiente es `miel-native`; `main` conserva el registro
+  histórico. El árbol activo solo admite `Platform/Xiaomi/mielPkg`, las
+  definiciones propias MT6781 y las herramientas propias. No reintroducir
+  BootShim, `edk2-platforms` ni paquetes de otras plataformas.
+- Mantener la procedencia del código y los créditos de h0nda1337 y Codex en
+  `CONTRIBUTORS.md` y `Docs/source-policy.md`; no reatribuir commits ajenos.
 - El firmware stock puede analizarse como referencia y servir de recuperación;
   no presentarlo como código propio ni publicarlo en este repositorio.
 - Conservar licencias y atribuciones. Mantener binarios y datos privados en Local/.

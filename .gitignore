@@ -1,20 +1,13 @@
-Build
-Conf
-*.dll
-.cache
-.vscode*
-.edkCode
-*.dts
-*.swp
-*.rej
-*.orig
-*.fd
-*.pyc
-*__pycache__*
-
-# Device captures, vendor firmware and downloaded reference sources stay local.
+# Private captures, reference firmware, dependencies and build output.
 /Local/
-
-# Source scripts are not generated EDK2 build output.
-!/Tools/Build/
-!/Tools/Build/build_native.sh
+/Build/
+/Conf/
+**/__pycache__/
+*.py[cod]
+*.fd
+*.img
+*.dtb
+*.dtbo
+*.dts
+.vscode/
+.idea/

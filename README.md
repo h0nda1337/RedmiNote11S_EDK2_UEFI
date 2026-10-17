@@ -1,15 +1,15 @@
 # Redmi Note 11S: EDK2 / MT6781 bring-up
 
-Trabajo inicial para **Redmi Note 11S 4G, variante `miel`, modelo 2201117SL**.
+Port independiente para **Redmi Note 11S 4G, variante `miel`, modelo 2201117SL**.
 Estado: **primer arranque UEFI Shell confirmado en el teléfono, con fotografía y prompt `Shell>`**.
 Las pruebas temporales han terminado restaurando el boot stock y verificando Android.
-Los dispositivos que enumera la base más abajo
-son los soportados por upstream; esa lista no implica soporte para `miel`.
 
-Este repositorio parte de `linux-mediatek/edk2-mtk`, rama `next`, commit
-`fdb0ef928ac70ff0f2725b4cb302db4d25a55c47`. Se conserva su historial y licencia.
-El código de otros equipos sigue siendo una referencia, no una configuración de
-memoria válida para este teléfono.
+El árbol activo contiene la plataforma y herramientas propias de este port,
+código adaptado de otros repositorios de h0nda1337 y el core EDK2 como submódulo
+externo. BootShim, las plataformas ajenas y `edk2-platforms` fueron retirados.
+La [política de fuentes](Docs/source-policy.md) describe la procedencia, las
+licencias y la rama principal independiente `miel-native`. Los créditos del
+trabajo están en [CONTRIBUTORS.md](CONTRIBUTORS.md).
 
 ## Trabajo realizado
 
@@ -54,6 +54,7 @@ La compilación nativa usa el EDK2 fijado en
 `b03a21a63e3bd001f52c527e5a57feddb53a690b`, GCC AArch64 y Debian/WSL:
 
 ```powershell
+wsl -d Debian -- bash /mnt/g/Codex/RedmiNote11S_EDK2_UEFI/build.sh
 wsl -d Debian -- bash /mnt/g/Codex/RedmiNote11S_EDK2_UEFI/Tools/Build/build_native.sh
 wsl -d Debian -- env MIEL_PROBE=entry bash /mnt/g/Codex/RedmiNote11S_EDK2_UEFI/Tools/Build/build_native.sh
 wsl -d Debian -- bash /mnt/g/Codex/RedmiNote11S_EDK2_UEFI/Tools/Tests/run_native_host.sh
@@ -90,28 +91,3 @@ El prompt `Shell>` confirma el hito inicial. El port sigue siendo experimental;
 entrada de usuario, almacenamiento, USB de UEFI y arranque de SO quedan pendientes.
 La sesión del 17 de octubre termina con el teléfono en Android stock, a petición
 del usuario.
-
----
-
-## Base original: EDK2 UEFI firmware for MediaTek Platforms
-
-## Description
-
-This repository aims to provide an usable EDK2 UEFI environment MediaTek SoCs.
-
-It can be used to boot Mainline Linux without devicetree hacks that requires MediaTek LK.
-
-## Supported Devices
-- Redmi Note 13 Pro 4G (emerald)
-- FPlus T1100
-- Mashtab T1 (Ayya T1)
-- Nokia 3.1 Plus
-
-## Acknowledgements
-- Renegade Project [edk2-msm](https://github.com/edk2-porting/edk2-msm)
-- [EFIDroid](https://github.com/efidroid)
-- [Lumia950XLPkg](https://github.com/WOA-Project/Lumia950XLPkg)
-- BigfootACA and his [SimpleInit](https://github.com/BigfootACA/simple-init)
-
-## License
-All code is licensed under BSD 2-Clause.
