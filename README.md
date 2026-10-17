@@ -1,8 +1,9 @@
 # Redmi Note 11S: EDK2 / MT6781 bring-up
 
 Trabajo inicial para **Redmi Note 11S 4G, variante `miel`, modelo 2201117SL**.
-Estado: identificación y análisis de firmware. **Todavía no hay una imagen UEFI
-arrancable para este dispositivo.** Los dispositivos que enumera la base más abajo
+Estado: **EDK2 nativo compilado; arranque físico UEFI todavía sin confirmar**.
+Las pruebas temporales han terminado restaurando el boot stock y verificando Android.
+Los dispositivos que enumera la base más abajo
 son los soportados por upstream; esa lista no implica soporte para `miel`.
 
 Este repositorio parte de `linux-mediatek/edk2-mtk`, rama `next`, commit
@@ -19,6 +20,16 @@ memoria válida para este teléfono.
   `OS1.0.9.0.TKEMIXM`, con registro de hashes SHA-256.
 - Aplicación del overlay 0 sobre el DTB 0 mediante `fdtoverlay`.
 - Primeros registros y PCD del MT6781 documentados a partir de ese DTB.
+- Dos capturas de LK coherentes: bancos de DRAM, asignaciones y framebuffer activo
+  `0x7ca06000`, 1080×2400, pitch 4320, BGRA8888. No sustituyen al FDT completo.
+- Plataforma nativa con SEC propio, lector FDT, plan de memoria, GOP, BDS y Shell
+  de EDK2. El código de plataforma procede del repositorio OPPO del mismo autor,
+  adaptado a MT6781; procedencia en `Docs/own-code-provenance.json`.
+- Entrada ARM64 comprobada en QEMU en EL1/EL2; bibliotecas verificadas con
+  ASan/UBSan y 40 pruebas Python de formatos, transporte y selección USB.
+- Diagnóstico Linux original sin libc. Su primer ELF produjo `-EFAULT` al cargar
+  PID 1; la corrección ya carga como proceso ordinario en el kernel del teléfono.
+  El canal CDC-ACM aún no ha entregado el FDT. No se afirma que funcione como PID 1.
 
 ## Empezar
 
@@ -36,11 +47,30 @@ python -m unittest discover -s Tools/Bringup/tests -v
 La segunda orden requiere sustituir `F:\ruta\images` por el directorio real del
 firmware. No escribe en el teléfono.
 
-El paquete inicial está en `Platform/Xiaomi/mielPkg`. Consulta
+La compilación nativa usa el EDK2 fijado en
+`b03a21a63e3bd001f52c527e5a57feddb53a690b`, GCC AArch64 y Debian/WSL:
+
+```powershell
+wsl -d Debian -- bash /mnt/g/Codex/RedmiNote11S_EDK2_UEFI/Tools/Build/build_native.sh
+wsl -d Debian -- env MIEL_PROBE=entry bash /mnt/g/Codex/RedmiNote11S_EDK2_UEFI/Tools/Build/build_native.sh
+wsl -d Debian -- bash /mnt/g/Codex/RedmiNote11S_EDK2_UEFI/Tools/Tests/run_native_host.sh
+wsl -d Debian -- bash /mnt/g/Codex/RedmiNote11S_EDK2_UEFI/Tools/Tests/test_sec_entry.sh
+```
+
+Los binarios y logs quedan en `Local/Build/`. Las simulaciones prueban contratos
+de entrada y bibliotecas; no representan un arranque del Redmi ni una Shell física.
+
+El paquete está en `Platform/Xiaomi/mielPkg`. Consulta
 [`Docs/miel-bringup.md`](Docs/miel-bringup.md) para ver las evidencias, los límites
-de los datos estáticos y el siguiente hito. No se ha definido un DSC completo ni
-una dirección de carga UEFI: faltan las reservas reales de RAM que añade LK al
-DTB durante el arranque.
+de los datos y el siguiente hito. El empaquetador `Tools/Bringup/native_boot.py`
+preserva la cabecera v2 y DTB stock, usa gzip como transporte de LK y una ramdisk
+vacía. El runner de laboratorio escribe temporalmente solo `boot_a` y restaura
+el stock preparado antes de volver a Android. No se distribuyen imágenes stock
+ni se recomienda instalar el prototipo.
+
+La sonda nativa inicial volvió a Fastboot sin franjas observadas. Todavía no se
+ha confirmado SEC, GOP ni Shell en la pantalla del teléfono. Las reservas reales
+de cada arranque deben validarse antes de habilitar el heap y DXE.
 
 ---
 

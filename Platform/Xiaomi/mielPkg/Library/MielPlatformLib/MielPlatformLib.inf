@@ -1,0 +1,17 @@
+## @file
+# SPDX-License-Identifier: BSD-2-Clause
+##
+[Defines]
+  INF_VERSION    = 0x0001001B
+  BASE_NAME      = MielPlatformLib
+  FILE_GUID      = B141687E-1696-41BB-9661-C31FD5E5FA09
+  MODULE_TYPE    = BASE
+  VERSION_STRING = 0.1
+  LIBRARY_CLASS  = MielPlatformLib
+
+[Sources]
+  MielPlatformLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  mielPkg/mielPkg.dec

@@ -1,0 +1,21 @@
+## @file
+# SPDX-License-Identifier: BSD-2-Clause
+##
+[Defines]
+  INF_VERSION    = 0x0001001B
+  BASE_NAME      = MielHandoffLib
+  FILE_GUID      = 2183613D-2DBD-4E92-8A67-2346936B64A2
+  MODULE_TYPE    = BASE
+  VERSION_STRING = 0.1
+  LIBRARY_CLASS  = MielHandoffLib
+
+[Sources]
+  MielHandoffLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  mielPkg/mielPkg.dec
+
+[LibraryClasses]
+  MielFdtLib
+  MielPlatformLib

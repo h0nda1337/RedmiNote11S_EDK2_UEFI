@@ -1,1 +1,11 @@
 *.asl linguist-language=c
+
+/Tools/Bringup/** text eol=lf
+/Tools/Build/*.sh text eol=lf
+/Tools/Tests/** text eol=lf
+/Platform/Xiaomi/mielPkg/** text eol=lf
+/Docs/*.md text eol=lf
+/Docs/*.json text eol=lf
+/README.md text eol=lf
+/AGENTS.md text eol=lf
+/.gitmodules text eol=lf

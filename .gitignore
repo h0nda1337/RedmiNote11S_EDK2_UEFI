@@ -14,3 +14,7 @@ Conf
 
 # Device captures, vendor firmware and downloaded reference sources stay local.
 /Local/
+
+# Source scripts are not generated EDK2 build output.
+!/Tools/Build/
+!/Tools/Build/build_native.sh

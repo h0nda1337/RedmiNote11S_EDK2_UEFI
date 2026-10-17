@@ -82,7 +82,7 @@ del MemTotal observado en Android. `/chosen` conserva un nombre de panel de
 referencia `nt35695_fhd_dsi_cmd_truly_rt5081_drv`. Estos datos muestran que falta
 la actualización de LK: no sirven para fijar el framebuffer ni toda la RAM.
 
-## Siguiente hito
+## Plan al inicio de la sesión
 
 1. Obtener el DTB que LK entrega realmente al kernel, incluyendo `/memory`,
    `/reserved-memory`, `/chosen/atag,mem` y los campos `atag,videolfb*`. La ruta
@@ -99,8 +99,78 @@ la actualización de LK: no sirven para fijar el framebuffer ni toda la RAM.
 5. Validar el empaquetado con la cabecera v2 observada y preparar una prueba de
    arranque temporal únicamente cuando exista una imagen y una vía de recuperación.
 
-No se ha reiniciado el dispositivo, flasheado, cambiado slots, alterado vbmeta,
-modificado el estado de bloqueo ni escrito particiones.
+## Avance posterior en la misma sesión
+
+Se obtuvieron dos registros independientes de Preloader/LK mediante Fastboot USB,
+con resumen público sin identificadores en `lk-observations.json`. LK declara
+DRAM `0x40000000+0x80000000` y `0xc0000000+0x100000000`. Asigna VRAM en
+`0x7c010000+0x1df0000`; la capa visible usa `0x7ca06000`, 1080×2400, pitch 4320,
+`eBGRA8888`. El bloque inicialmente libre `0x40000000+0xc080000` contiene las
+regiones candidatas del FD (8 MiB desde `0x40080000`) y del heap (64 MiB desde
+`0x43000000`). Son eventos del asignador; no se presentan como un mapa final.
+
+La plataforma `MielNative.dsc/.fdf` ya compila EDK2 nativo, con entrada SEC propia
+que conserva x0, interpretación FDT, política de memoria, GOP, Runtime y BDS
+propios, y Shell del core EDK2. Se reutilizó código de
+`h0nda1337/OppoReno5Lite_EDK2_UEFI` a commit
+`13db93f82358caba3eb5214bb7985b0161810946`, con adaptación explícita del hardware;
+las direcciones del OPPO no se trasladaron como perfil del Redmi. Los archivos,
+hashes originales y autoría están en `own-code-provenance.json`.
+
+El core se fijó en `b03a21a63e3bd001f52c527e5a57feddb53a690b`. La inspección del FD
+comprueba las ramas cabecera→FV→SEC, formatos TE/PE AArch64, módulos y DEPEX del
+productor PCD. Hay pruebas de entrada QEMU EL1/EL2, bibliotecas con ASan/UBSan
+y 40 pruebas Python. Estos resultados son de host y simulación.
+
+## Pruebas físicas y recuperación
+
+Primero se probó `fastboot boot` con el boot stock sin modificar. El teléfono
+regresó a Android declarando `lk_crash`; esta ruta RAM no se usa como garantía
+de recuperación. El análisis estático de LK apunta a su inicialización del estado
+de cabeceras, pero no demuestra el punto exacto de fallo en ejecución.
+
+Se preparó un diagnóstico Linux con los drivers/kernel stock, DTB sin modificar
+y un PID 1 original, estático, sin libc. Solo usa sistemas de archivos virtuales
+y dispositivos de caracteres. No contiene TWRP, Magisk ni otro userspace externo.
+Las imágenes de laboratorio conservan propiedades AVB stock y añaden un footer
+con algoritmo NONE; no están firmadas por Xiaomi y no se modifica vbmeta.
+
+La primera prueba temporal de `boot_a` entró en bucle. Tras recuperar Fastboot
+con botones, se restauró el stock y Android completó el arranque. DropBox del
+sistema conservó `Failed to execute /init (error -14)` y `No working init found`.
+El ELF tenía un segmento RW sin bytes de archivo y BSS sin alinear. El binario
+original también falló como proceso ordinario en el teléfono (salida 139), mientras
+la corrección con datos inicializados salió 2 por su guardia de PID 1. QEMU user
+mode por sí solo no detectaba ese problema.
+
+La relación con la carga y el borrado de la página parcial de BSS es una
+inferencia apoyada por el formato observado y la implementación de
+[Linux 4.19, binfmt_elf.c](https://github.com/torvalds/linux/blob/v4.19/fs/binfmt_elf.c).
+El empaquetador y el runner ahora rechazan ese diseño y ejecutan el ELF exacto
+como proceso ordinario antes de una nueva escritura de boot.
+
+Se corrigió también `O_DIRECTORY` para AArch64 (`0x4000`). Las constantes,
+ioctls y tamaños se contrastan al compilar con los headers instalados, sin enlazar
+código de bibliotecas. Una sonda original de solo lectura ejecutada por ADB
+enumeró `musb-hdrc`. Las siguientes pruebas no entregaron el FDT por CDC-ACM;
+en una de ellas fue necesario reconectar el USB para que Windows viera Fastboot.
+Cada sesión terminó con stock restaurado y `sys.boot_completed=1`.
+
+La primera sonda nativa se empaquetó en boot v2 con FD gzip y ramdisk vacía.
+Regresó automáticamente a Fastboot, se restauró stock y se verificó Android.
+El usuario solo observó logo/Fastboot, sin las franjas esperadas. Esto no confirma
+ejecución SEC ni Shell. La sonda corta se está separando de la política del heap
+para identificar el primer punto de parada con una señal de pantalla verificable.
+
+Los ensayos han escrito temporalmente **solo boot_a**, con copia stock comprobada
+antes de cada escritura. No se han cambiado slots, vbmeta, preloader/LK, bloqueo
+ni datos personales. El retorno solicitado por software no sustituye a la vía
+manual de Fastboot: mantener Volumen abajo, forzar apagado con Encendido y soltar
+solo Encendido al apagarse/vibrar.
+
+El siguiente hito sigue siendo una señal nativa inequívoca y, después, Shell
+UEFI en pantalla con la memoria del arranque validada. El FDT crudo, imágenes
+y registros completos permanecen privados en `Local/` y fuera de Git.
 
 ## Fuentes primarias
 

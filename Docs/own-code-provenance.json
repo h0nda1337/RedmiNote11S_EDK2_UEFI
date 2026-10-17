@@ -1,0 +1,441 @@
+[
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "scripts/recovery_image.py",
+    "destination": "Tools/Bringup/own_image.py",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "sha256": "83258d9c098cd0fdf3fc66e7751fef18659f429bd2a9d8412b5e6f21fe781211",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Drivers/OppoBdsDxe/OppoBdsDxe.c",
+    "destination": "Platform/Xiaomi/mielPkg/Drivers/MielBdsDxe/MielBdsDxe.c",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "c88668b7007d6ce8f540c631b0e8238798c4367b641d0ff1a6ba8ffbb7438e93",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Drivers/OppoBdsDxe/OppoBdsDxe.inf",
+    "destination": "Platform/Xiaomi/mielPkg/Drivers/MielBdsDxe/MielBdsDxe.inf",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "26b90666d3d9f96eea112de7927bd3664e9ba0e4f1634c592e969f2c4dc6bbf9",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Drivers/OppoGopDxe/OppoGopDxe.c",
+    "destination": "Platform/Xiaomi/mielPkg/Drivers/MielGopDxe/MielGopDxe.c",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "9bdd3e4b1730371b087801836d9369e6afa3768af672294ec545a28c3e850506",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Drivers/OppoGopDxe/OppoGopDxe.inf",
+    "destination": "Platform/Xiaomi/mielPkg/Drivers/MielGopDxe/MielGopDxe.inf",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "a5e4d1309cc8c8f255a6d6f70ab9b9708540705d26f5280f3ba64cb99d266823",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Drivers/OppoRuntimeDxe/OppoRuntimeDxe.c",
+    "destination": "Platform/Xiaomi/mielPkg/Drivers/MielRuntimeDxe/MielRuntimeDxe.c",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "8fe230f8233d61806cd75d80a15944b716c04662db76f3581da21c897350e8fb",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Drivers/OppoRuntimeDxe/OppoRuntimeDxe.inf",
+    "destination": "Platform/Xiaomi/mielPkg/Drivers/MielRuntimeDxe/MielRuntimeDxe.inf",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "245a3552d27a3147fa48399196f814ad1c47ed80ed2e3e50b53f7e0adbf9dded",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Include/Guid/OppoBootInfo.h",
+    "destination": "Platform/Xiaomi/mielPkg/Include/Guid/MielBootInfo.h",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "727ef9c133df7931cde4c2f242ac52f66372088768e0306e804016b44b823b4a",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Include/Library/OppoDebugLog.h",
+    "destination": "Platform/Xiaomi/mielPkg/Include/Library/MielDebugLog.h",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "f831ad8d207bc25310627ae46e09feeed0fe1e3a05b3efd652628a0ec68ff706",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Include/Library/OppoFdtLib.h",
+    "destination": "Platform/Xiaomi/mielPkg/Include/Library/MielFdtLib.h",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "eda50dc17ee572a0de1e0cee47c6503918e11c192f8bf2334d441da34f5f4cc7",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Include/Library/OppoFrameBufferLib.h",
+    "destination": "Platform/Xiaomi/mielPkg/Include/Library/MielFrameBufferLib.h",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "b35e2af1a9b4a19f3e67f060ff113174dea7c39f98d9622848c019bd57bc6489",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Include/Library/OppoHandoffLib.h",
+    "destination": "Platform/Xiaomi/mielPkg/Include/Library/MielHandoffLib.h",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "a841a7174b49f301ce835cf93bfc0a8a4803c4058d628db49438148991565fa4",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Include/Library/OppoMemoryPlanLib.h",
+    "destination": "Platform/Xiaomi/mielPkg/Include/Library/MielMemoryPlanLib.h",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "97d12d58753b2dda1852694811f28cc2788757450b528a176bbf68fe19ac8139",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Include/Library/OppoPlatformLib.h",
+    "destination": "Platform/Xiaomi/mielPkg/Include/Library/MielPlatformLib.h",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "94b7e43f10e793884991d2f0a9fc04cfac45fe86c26859a46d904140a232eb27",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Include/OppoNativeProfile.h",
+    "destination": "Platform/Xiaomi/mielPkg/Include/MielNativeProfile.h",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "45898c9e720dc1c9b419cecad21c255643dffa483196fc40136cef3d0015bb47",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Include/OppoSecEntry.h",
+    "destination": "Platform/Xiaomi/mielPkg/Include/MielSecEntry.h",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "8af12b605c749964b2c094f66667413bf79032005a6d7056a42d70f6e5d86ecd",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Library/OppoDebugLib/OppoDebugCoreLib.inf",
+    "destination": "Platform/Xiaomi/mielPkg/Library/MielDebugLib/MielDebugCoreLib.inf",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "1692d27292bd9cc1d349c6d392dfa631f85823095d7ecb608b79790d80fa3326",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Library/OppoDebugLib/OppoDebugLib.c",
+    "destination": "Platform/Xiaomi/mielPkg/Library/MielDebugLib/MielDebugLib.c",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "a58a436cdcc9df496f5c7dd525200f727ada82eb3ab9cd2fc001a938e895c98a",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Library/OppoDebugLib/OppoDebugLib.inf",
+    "destination": "Platform/Xiaomi/mielPkg/Library/MielDebugLib/MielDebugLib.inf",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "67b166470f39daeb63ed4166fc823a4de14266805abfb4490f18d98ccd9655ad",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Library/OppoFdtLib/OppoFdtLib.c",
+    "destination": "Platform/Xiaomi/mielPkg/Library/MielFdtLib/MielFdtLib.c",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "310f09fe7ae1f0f56076a39743c8974d735eae0f7273fdce500c720f38555058",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Library/OppoFdtLib/OppoFdtLib.inf",
+    "destination": "Platform/Xiaomi/mielPkg/Library/MielFdtLib/MielFdtLib.inf",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "8373e0a316219f85fb4c7fd50ad71fde398846af4d5d947b8c8927355cfbdaed",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Library/OppoFrameBufferLib/OppoFrameBufferLib.c",
+    "destination": "Platform/Xiaomi/mielPkg/Library/MielFrameBufferLib/MielFrameBufferLib.c",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "45520c34d714d60ac9f5ff59c6ad648d31a24096e02d58cf8053bb4b03c3a804",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Library/OppoFrameBufferLib/OppoFrameBufferLib.inf",
+    "destination": "Platform/Xiaomi/mielPkg/Library/MielFrameBufferLib/MielFrameBufferLib.inf",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "81ea0decf2b8885afceeca1606f0bc5fa93fec1b76bf3223755a25442bf5bfef",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Library/OppoHandoffLib/OppoHandoffLib.c",
+    "destination": "Platform/Xiaomi/mielPkg/Library/MielHandoffLib/MielHandoffLib.c",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "a385d6d3581c2863c4b7911b8a956c19854a1c4251aa0ab1072a9ce523d34a13",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Library/OppoHandoffLib/OppoHandoffLib.inf",
+    "destination": "Platform/Xiaomi/mielPkg/Library/MielHandoffLib/MielHandoffLib.inf",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "c7f9c02bea6304abe7429508ee42747da79f16e33b214c72cfc3a562364d4b66",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Library/OppoMemoryPlanLib/OppoMemoryPlanLib.c",
+    "destination": "Platform/Xiaomi/mielPkg/Library/MielMemoryPlanLib/MielMemoryPlanLib.c",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "dad25a69cec1a9ba813ba40bb3a4b9aad797492d6596c38898afb7f0d15c8dc5",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Library/OppoMemoryPlanLib/OppoMemoryPlanLib.inf",
+    "destination": "Platform/Xiaomi/mielPkg/Library/MielMemoryPlanLib/MielMemoryPlanLib.inf",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "3dbe2576f7d7b1f73fafbb27c3bd75dbb06ffef05c3da762c4f00926800ba3cc",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Library/OppoPlatformLib/OppoPlatformLib.c",
+    "destination": "Platform/Xiaomi/mielPkg/Library/MielPlatformLib/MielPlatformLib.c",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "f4046eb4b83d24bf047987c14946091a2b2265e5ba6a5877caa4b5d772a5ca75",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Library/OppoPlatformLib/OppoPlatformLib.inf",
+    "destination": "Platform/Xiaomi/mielPkg/Library/MielPlatformLib/MielPlatformLib.inf",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "328449be73be26020464949cbf046d6e5f839ca5e53fcdead6c37d523c0e3f22",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/OppoNative.dsc",
+    "destination": "Platform/Xiaomi/mielPkg/MielNative.dsc",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "3d2050a789a581f9998c5cf183fda3b1b052c37bb1779bc54a4538a6dbdde1ab",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/OppoNative.fdf",
+    "destination": "Platform/Xiaomi/mielPkg/MielNative.fdf",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "4da5f7c070b9eb3cec744403a2cb0e8176889ac789f8b05810450f8fd492eb7b",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/OppoReno5LitePkg.dec",
+    "destination": "Platform/Xiaomi/mielPkg/mielPkg.dec",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "9f745d315f11576df35619f6d01af1c59e311b5fec656d069540aaf320c59782",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Sec/AArch64/Entry.S",
+    "destination": "Platform/Xiaomi/mielPkg/Sec/AArch64/Entry.S",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "5583e067d99163a7bff5797ab9a1bcb684539b10eb8d0e9e3450acf7d8bb5e2f",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Sec/NativeMain.c",
+    "destination": "Platform/Xiaomi/mielPkg/Sec/NativeMain.c",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "95de77f536ea9c3cd5efbd2abe9524e620378c09c3eb5a3d1e963d1dad596ed6",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "OppoReno5LitePkg/Sec/OppoSec.inf",
+    "destination": "Platform/Xiaomi/mielPkg/Sec/MielSec.inf",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "cf34eb970c9ab57900685ecff645d2d21cd2d574f8822ab5e690e7f6c13e7172",
+    "modifications": "Rename platform namespace; MT6781 hardware adaptation reviewed separately",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "scripts/test_handoff.c",
+    "destination": "Tools/Tests/test_handoff.c",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "f113aa1fe942508bcc502ddd3cdf09731d866a20e94c1548cf789e1c3dacb982",
+    "modifications": "Rename platform namespace; generalize optional private runtime checks for MT6781 instead of asserting OPPO addresses",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "scripts/test_memory_plan.c",
+    "destination": "Tools/Tests/test_memory_plan.c",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "c529bbf1f3a91e6ccd1789e08f41605a446e658412224dd541ad41d8612d2d4a",
+    "modifications": "Namespace MT6781 adaptation; fixture tests only, not physical evidence",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "scripts/test_framebuffer.c",
+    "destination": "Tools/Tests/test_framebuffer.c",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "26b5c9f9a158c959fcdcc0b185f6457a59335750970ae77c8d4e6e222aa89394",
+    "modifications": "Namespace MT6781 adaptation; fixture tests only, not physical evidence",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "scripts/build_handoff_lib.sh",
+    "destination": "Tools/Tests/build_handoff_lib.sh",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "367157d948239d27818cfceb88458f3fc472c87f31a5f7c5a7311c15b58b0cad",
+    "modifications": "Namespace MT6781 adaptation; fixture tests only, not physical evidence",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "scripts/inspect_native_firmware.py",
+    "destination": "Tools/Bringup/verify_native_fd.py",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "61906d13c89492cbb80e5a28f95b52c3852b26e3f16dd6da46a8b4c57ccc933e",
+    "modifications": "Miel module GUID adaptation",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "scripts/recovery_avb.py",
+    "destination": "Tools/Bringup/own_avb_properties.py",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "1b04d4c5caccefb8ff7d2905bceb44fce50355383bf23bf7fb93cf17dd88e93e",
+    "modifications": "Retain read-only property parser; exclude external-tool invocation",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "scripts/test_sec_entry.sh",
+    "destination": "Tools/Tests/test_sec_entry.sh",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "55269af3147ebee9af12cb8693be6f9cda1ef63b0f93070813c359b9d866cd1a",
+    "modifications": "Rename platform namespace and host-only build paths",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "scripts/test_sec_entry.c",
+    "destination": "Tools/Tests/test_sec_entry.c",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "e60f8d1bde86be48514546b2d39bc3741c3d291c822a137568e8e97fb55bada7",
+    "modifications": "Rename platform namespace and host-only build paths",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "repository": "https://github.com/h0nda1337/OppoReno5Lite_EDK2_UEFI",
+    "commit": "13db93f82358caba3eb5214bb7985b0161810946",
+    "source_path": "scripts/test_sec_header.S",
+    "destination": "Tools/Tests/test_sec_header.S",
+    "source_last_author": "h0nda1337 <108969187+h0nda1337@users.noreply.github.com>",
+    "source_sha256": "cb1abcc53312e42275af6d546c7752c449a34a40ebd55f5c017b72ffe611c115",
+    "modifications": "Rename platform namespace and host-only build paths",
+    "license": "BSD-2-Clause"
+  }
+]

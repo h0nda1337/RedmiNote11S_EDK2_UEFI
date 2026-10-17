@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "device": "miel / MT6781 / 2201117SL",
+  "date": "2026-10-17",
+  "selected_transport": "USB only",
+  "stock_sha256": "f82b804775d3d205b774ace88e3a36c65f9500f5df8a312a370322fc2999cf5d",
+  "raw_captures_private": true,
+  "uefi_shell_verified": false,
+  "tests": [
+    {
+      "name": "linux-original",
+      "candidate_sha256": "0598eab60f7dc7536a0e5d223a704d4bae9e1dbb8a1d5e21cc7a92ebebb21bd5",
+      "partition": "boot_a",
+      "android_before_battery_percent": 56,
+      "stock_restored": true,
+      "stock_android_boot_completed": true,
+      "linux_capture_complete": false,
+      "uefi_execution_verified": false,
+      "native_bootloader_return_observed": null,
+      "observer_report": "Reinicio en bucle; registro del kernel: /init error -14"
+    },
+    {
+      "name": "linux-elf-fixed",
+      "candidate_sha256": "82356f3a82fbb60f83e46d7b7c554e8971693df2a774d1bba91f58452cba0848",
+      "partition": "boot_a",
+      "android_before_battery_percent": 56,
+      "stock_restored": true,
+      "stock_android_boot_completed": true,
+      "linux_capture_complete": false,
+      "uefi_execution_verified": false,
+      "native_bootloader_return_observed": null,
+      "observer_report": "Logo fijo; no hubo captura CDC-ACM"
+    },
+    {
+      "name": "linux-abi-fixed",
+      "candidate_sha256": "98f0fd6c9b2e2b952cd150b256fd46f507e3d28964ca3ab524d8509c6d22941b",
+      "partition": "boot_a",
+      "android_before_battery_percent": 57,
+      "stock_restored": true,
+      "stock_android_boot_completed": true,
+      "linux_capture_complete": false,
+      "uefi_execution_verified": false,
+      "native_bootloader_return_observed": null,
+      "observer_report": "Fastboot; Windows lo detectó después de reconectar el USB"
+    },
+    {
+      "name": "native-entry-first",
+      "candidate_sha256": "371ddebc1b6df7030216d62ecf09ac5a2e7c4c5b9c3fcf0b511395196b3633ff",
+      "partition": "boot_a",
+      "android_before_battery_percent": 57,
+      "stock_restored": true,
+      "stock_android_boot_completed": true,
+      "linux_capture_complete": false,
+      "uefi_execution_verified": false,
+      "native_bootloader_return_observed": true,
+      "observer_report": "Solo logo o Fastboot; sin franjas observadas"
+    }
+  ]
+}
